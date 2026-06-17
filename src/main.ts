@@ -1,6 +1,9 @@
 import "./styles/main.css";
 import "./components/button/button";
 import "./components/nav/app-nav";
+import "./components/page/page-view";
+
+import { initRouter } from "./router";
 import { testStore } from "./store/test.store";
 
 const setButton = document.getElementById("setButton");
@@ -32,3 +35,5 @@ resetButton?.addEventListener("click", () => {
   testStore.reset();
   console.debug("reset test store");
 });
+
+initRouter();
