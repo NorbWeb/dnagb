@@ -21,11 +21,14 @@ class PageView extends HTMLElement {
       return;
     }
 
+    let title = page.show_title ? `<h1>${page.title}</h1>` : "";
+
     // Hier rendern wir das "Template" der Seite
     this.innerHTML = `
       <article>
-        <h1>${page.title || "Titel"}</h1>
-        <div class="content">${page.content || "Inhalt"}</div>
+      <div class="content">
+        ${title}
+        ${page.content || "Ich bin leer, bitte gib mir Worte!"}</div>
       </article>
     `;
   }

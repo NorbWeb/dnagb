@@ -7,7 +7,9 @@ export class PageStore {
   _pageTree = new Signal<Page[]>([]);
 
   async fetchPages() {
-    const res = await fetch(`${environment.cmsUrl}/items/pages`);
+    const res = await fetch(
+      `${environment.cmsUrl}/items/pages?filter={"status":{"_eq":"published"}}`,
+    );
     const data = await res.json();
 
     const tree = this.createPageTree(data.data);
@@ -37,10 +39,6 @@ export class PageStore {
     return this._pageTree.value;
   }
 
-  update(newValue: Page[]) {
-    this._pages.value = [...newValue];
-  }
-
   findByPath(pathName: string) {
     let result = this._pages.value.find((f: Page) => f.fullPath === pathName);
     return result;
@@ -53,6 +51,9 @@ export class PageStore {
     // 1. Initialisierung: Map aufbauen und sicherstellen, dass jedes Item 'children' hat
     // 2. Baum bauen: Alles in einer einzigen Schleife
     for (const item of pages) {
+      // if (item.status !== "published") {
+      //   continue;
+      // }
       // Sicherstellen, dass das aktuelle Item in der Map existiert (ggf. Kopie mit children)
       map[item.id] = { ...item, children: map[item.id]?.children || [] };
       const currentItem = map[item.id];

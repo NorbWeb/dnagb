@@ -1,13 +1,15 @@
 export interface Page {
-  id: string;
-  title: string;
-  slug: string;
+  children: Page[];
   content: string;
-  status: "draft" | "published";
-  parent: string | null;
-  children: Page[]; // Rekursive Struktur
-  fullPath: string;
-  sort: number;
-  user_updated: string;
   date_updated: string;
+  fullPath: string;
+  id: string;
+  show_title: boolean;
+  parent: string | null;
+  slug: string;
+  slug_manual_override: boolean;
+  sort: number;
+  status: "draft" | "published";
+  title: string;
+  user_updated: string | null;
 }
