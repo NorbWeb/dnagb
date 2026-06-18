@@ -1,38 +1,51 @@
 // components/page/page-view.ts
 import { pageStore } from "../../store/page.store";
+import { renderBlock } from "../../renderer/block.renderer";
 
 class PageView extends HTMLElement {
   static get observedAttributes() {
     return ["path"];
   }
 
-  attributeChangedCallback(name: string, oldVal: string, newVal: string) {
-    if (name === "path" && oldVal !== newVal) {
-      this.render();
-    }
+  attributeChangedCallback() {
+    this.render();
   }
 
   render() {
     const path = this.getAttribute("path");
-    const page = pageStore.pages.find((p) => p.fullPath === path);
+    const page = pageStore.findByPath(path || "");
 
     if (!page) {
       this.innerHTML = `<h1>404 - Seite nicht gefunden</h1>`;
       return;
     }
 
-    let title = page.show_title ? `<h1>${page.title}</h1>` : "";
+    this.innerHTML = "";
+    const article = document.createElement("article");
 
-    // Hier rendern wir das "Template" der Seite
-    this.innerHTML = `
-      <article>
-      <div class="content">
-        ${title}
-        ${page.content || "Ich bin leer, bitte gib mir Worte!"}</div>
-      </article>
-    `;
+    if (page.show_title) {
+      let title = document.createElement(`h1`);
+      title.textContent = page.title;
+      article.appendChild(title);
+    }
+
+    if (page.content_radio_switch === "text_editor") {
+      article.innerHTML += page.text_editor ? page.text_editor : "Ohne Inhalt";
+    }
+
+    if (
+      page.content_radio_switch === "block_editor" &&
+      page.block_editor?.blocks
+    ) {
+      for (const block of page.block_editor.blocks) {
+        article.appendChild(renderBlock(block));
+      }
+    }
+
+    this.appendChild(article);
   }
 }
+
 if (!customElements.get("page-view")) {
   customElements.define("page-view", PageView);
 }

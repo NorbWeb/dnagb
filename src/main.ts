@@ -6,11 +6,12 @@ import "./components/page/page-view";
 import { initRouter } from "./router";
 import { testStore } from "./store/test.store";
 
+// dev tools
+const showDevTools = false;
 const setButton = document.getElementById("setButton");
 const getButton = document.getElementById("getButton");
 const resetButton = document.getElementById("resetButton");
 
-// Event-Listener für das Custom Event
 setButton?.addEventListener("click", (e: any) => {
   switch (testStore.test.length) {
     case 0:
@@ -35,5 +36,10 @@ resetButton?.addEventListener("click", () => {
   testStore.reset();
   console.debug("reset test store");
 });
+
+if (!showDevTools) {
+  let devTools = document.getElementById("devTools");
+  if (devTools) devTools.style.display = "none";
+}
 
 initRouter();

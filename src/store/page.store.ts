@@ -11,6 +11,7 @@ export class PageStore {
       `${environment.cmsUrl}/items/pages?filter={"status":{"_eq":"published"}}`,
     );
     const data = await res.json();
+    console.log(`📢 ~ PageStore ~ data:`, data);
 
     const tree = this.createPageTree(data.data);
 

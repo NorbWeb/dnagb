@@ -1,6 +1,8 @@
 export interface Page {
   children: Page[];
-  content: string;
+  text_editor: string;
+  block_editor: null | any;
+  content_radio_switch: "text_editor" | "block_editor";
   date_updated: string;
   fullPath: string;
   id: string;
