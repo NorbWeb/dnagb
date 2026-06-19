@@ -28,8 +28,22 @@ export const renderBlock = (block: any): HTMLElement => {
       let quoteFigcaption = document.createElement("figcaption");
       quoteFigcaption.textContent = block.data.caption;
       quoteFigure.appendChild(quoteFigcaption);
-
       return quoteFigure;
+
+    case "delimiter":
+      let delimiter = document.createElement("hr");
+      return delimiter;
+
+    case "checklist":
+      const ul = document.createElement("ul");
+      ul.className = "checklist-display";
+      for (const item of block.data.items) {
+        const li = document.createElement("li");
+        li.textContent = item.text;
+        li.className = item.checked ? "checked" : "unchecked";
+        ul.appendChild(li);
+      }
+      return ul;
 
     case "nestedlist":
       function generateListElements(block: any) {
