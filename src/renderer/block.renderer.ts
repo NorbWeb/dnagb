@@ -45,6 +45,26 @@ export const renderBlock = (block: any): HTMLElement => {
       }
       return ul;
 
+    case "table":
+      let table = document.createElement("table");
+      let thead = document.createElement("thead");
+      let tbody = document.createElement("tbody");
+      let asHead = true;
+
+      for (const tableRow of block.data.content) {
+        let row = document.createElement("tr");
+        for (const tableCell of tableRow) {
+          let cell = document.createElement(asHead ? "th" : "td");
+          cell.innerHTML = tableCell;
+          row.appendChild(cell);
+        }
+        asHead ? thead.appendChild(row) : tbody.appendChild(row);
+        asHead = false;
+      }
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      return table;
+
     case "nestedlist":
       function generateListElements(block: any) {
         const { type, items } = block.data;
