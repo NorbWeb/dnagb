@@ -49,27 +49,17 @@ export class PageStore {
     const map: Record<string, any> = {};
     const tree: Page[] = [];
 
-    // 1. Initialisierung: Map aufbauen und sicherstellen, dass jedes Item 'children' hat
-    // 2. Baum bauen: Alles in einer einzigen Schleife
     for (const item of pages) {
-      // if (item.status !== "published") {
-      //   continue;
-      // }
-      // Sicherstellen, dass das aktuelle Item in der Map existiert (ggf. Kopie mit children)
       map[item.id] = { ...item, children: map[item.id]?.children || [] };
       const currentItem = map[item.id];
 
       if (item.parent === null) {
-        // Wenn es kein Parent hat, ist es eine Wurzel
         tree.push(currentItem);
       } else {
-        // Wenn es ein Parent hat:
-        // Stelle sicher, dass das Parent in der Map existiert
         if (!map[item.parent]) {
           map[item.parent] = { children: [] };
         }
 
-        // Pushe das aktuelle Item in das children-Array des Parents
         map[item.parent].children.push(currentItem);
       }
     }

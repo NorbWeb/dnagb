@@ -17,6 +17,20 @@ export const renderBlock = (block: any): HTMLElement => {
       p.textContent = block.data.text;
       return p;
 
+    case "quote":
+      let quoteFigure = document.createElement("figure");
+      quoteFigure.classList.add("quote-figure");
+      let blockquote = document.createElement("blockquote");
+      quoteFigure.appendChild(blockquote);
+      let blockText = document.createElement("p");
+      blockText.textContent = block.data.text;
+      blockquote.appendChild(blockText);
+      let quoteFigcaption = document.createElement("figcaption");
+      quoteFigcaption.textContent = block.data.caption;
+      quoteFigure.appendChild(quoteFigcaption);
+
+      return quoteFigure;
+
     case "nestedlist":
       function generateListElements(block: any) {
         const { type, items } = block.data;
@@ -57,7 +71,25 @@ export const renderBlock = (block: any): HTMLElement => {
       link.target = "_blank";
       return link;
 
+    case "image":
+      const { name, title, url } = block.data.file;
+      let figure = document.createElement("figure");
+      figure.classList.add("img-figure");
+      let figcaption = document.createElement("figcaption");
+      figcaption.textContent = block.data.caption;
+
+      let img = document.createElement("img");
+      img.title = title;
+      img.alt = name;
+      img.src = `${environment.cmsUrl}${url}`;
+
+      figure.appendChild(img);
+      figure.appendChild(figcaption);
+
+      return figure;
+
     default:
+      console.debug("unmatched block: ", block);
       return document.createElement("div");
   }
 };
