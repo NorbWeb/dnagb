@@ -37,7 +37,7 @@ resetButton?.addEventListener("click", () => {
   console.debug("reset test store");
 });
 
-if (!showDevTools) {
+if (import.meta.env.VITE_ENVIRONMENT !== "dev") {
   let devTools = document.getElementById("devTools");
   if (devTools) devTools.style.display = "none";
 }

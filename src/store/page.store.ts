@@ -1,5 +1,4 @@
 import { Signal } from "./signal";
-import { environment } from "../environment/env";
 import type { Page } from "../types/page";
 
 export class PageStore {
@@ -8,7 +7,7 @@ export class PageStore {
 
   async fetchPages() {
     const res = await fetch(
-      `${environment.cmsUrl}/items/pages?filter={"status":{"_eq":"published"}}`,
+      `${import.meta.env.VITE_CMS_URL}/items/pages?filter={"status":{"_eq":"published"}}`,
     );
     const data = await res.json();
     console.log(`📢 ~ PageStore ~ data:`, data);

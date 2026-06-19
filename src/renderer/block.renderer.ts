@@ -1,5 +1,3 @@
-import { environment } from "../environment/env";
-
 interface BlockEditorList {
   content: string;
   items: BlockEditorList[];
@@ -9,12 +7,12 @@ export const renderBlock = (block: any): HTMLElement => {
   switch (block.type) {
     case "header":
       let header = document.createElement(`h${block.data.level}`);
-      header.textContent = block.data.text;
+      header.innerHTML = block.data.text;
       return header;
 
     case "paragraph":
       let p = document.createElement("p");
-      p.textContent = block.data.text;
+      p.innerHTML = block.data.text;
       return p;
 
     case "quote":
@@ -23,10 +21,10 @@ export const renderBlock = (block: any): HTMLElement => {
       let blockquote = document.createElement("blockquote");
       quoteFigure.appendChild(blockquote);
       let blockText = document.createElement("p");
-      blockText.textContent = block.data.text;
+      blockText.innerHTML = block.data.text;
       blockquote.appendChild(blockText);
       let quoteFigcaption = document.createElement("figcaption");
-      quoteFigcaption.textContent = block.data.caption;
+      quoteFigcaption.innerHTML = block.data.caption;
       quoteFigure.appendChild(quoteFigcaption);
       return quoteFigure;
 
@@ -39,7 +37,7 @@ export const renderBlock = (block: any): HTMLElement => {
       ul.className = "checklist-display";
       for (const item of block.data.items) {
         const li = document.createElement("li");
-        li.textContent = item.text;
+        li.innerHTML = item.text;
         li.className = item.checked ? "checked" : "unchecked";
         ul.appendChild(li);
       }
@@ -78,7 +76,7 @@ export const renderBlock = (block: any): HTMLElement => {
         ) {
           for (const item of items) {
             const li = document.createElement("li");
-            li.textContent = item.content;
+            li.innerHTML = item.content;
 
             if (item.items && item.items.length > 0) {
               const subList = document.createElement(
@@ -99,23 +97,54 @@ export const renderBlock = (block: any): HTMLElement => {
       return newList;
 
     case "attaches":
-      let link = document.createElement("a");
-      link.href = `${environment.cmsUrl}${block.data.file.url}`;
-      link.innerText = block.data.title;
-      link.target = "_blank";
-      return link;
+      let downloadBox = document.createElement("a");
+      downloadBox.classList.add("file-download");
+      downloadBox.href = `${import.meta.env.VITE_CMS_URL}${block.data.file.url}`;
+      downloadBox.target = "_blank";
+
+      let fileType = document.createElement("div");
+      fileType.classList.add("file-type");
+      fileType.textContent = block.data.file.extension;
+      downloadBox.appendChild(fileType);
+
+      let fileInfo = document.createElement("div");
+      fileInfo.classList.add("file-info");
+      downloadBox.appendChild(fileInfo);
+
+      let fileName = document.createElement("span");
+      fileName.textContent = block.data.file.title || block.data.file.name;
+      fileInfo.appendChild(fileName);
+
+      let fileSize = document.createElement("span");
+      function formatBytes(bytes: number, decimals = 1) {
+        if (bytes === 0) return "0 Bytes";
+
+        const k = 1024;
+        const dm = decimals < 0 ? 0 : decimals;
+        const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB"];
+
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+        return (
+          parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i]
+        );
+      }
+      fileSize.textContent = formatBytes(block.data.file.size);
+      fileInfo.appendChild(fileSize);
+
+      return downloadBox;
 
     case "image":
       const { name, title, url } = block.data.file;
       let figure = document.createElement("figure");
       figure.classList.add("img-figure");
       let figcaption = document.createElement("figcaption");
-      figcaption.textContent = block.data.caption;
+      figcaption.innerHTML = block.data.caption;
 
       let img = document.createElement("img");
       img.title = title;
       img.alt = name;
-      img.src = `${environment.cmsUrl}${url}`;
+      img.src = `${import.meta.env.VITE_CMS_URL}${url}`;
 
       figure.appendChild(img);
       figure.appendChild(figcaption);
