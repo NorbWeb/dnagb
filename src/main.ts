@@ -7,7 +7,6 @@ import { initRouter } from "./router";
 import { testStore } from "./store/test.store";
 
 // dev tools
-const showDevTools = false;
 const setButton = document.getElementById("setButton");
 const getButton = document.getElementById("getButton");
 const resetButton = document.getElementById("resetButton");
