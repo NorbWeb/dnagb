@@ -6,10 +6,11 @@ export interface Page {
   date_updated: string;
   fullPath: string;
   id: string;
-  show_title: boolean;
+  show_title: "true" | "hide";
   parent: string | null;
   slug: string;
   slug_manual_override: boolean;
+  link_location: "menu" | "footer";
   sort: number;
   status: "draft" | "published";
   title: string;

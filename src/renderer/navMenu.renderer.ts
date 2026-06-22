@@ -2,39 +2,44 @@ import { type Page } from "../types/page";
 
 function renderTree(pages: Page[]): HTMLElement | null {
   if (!pages || pages.length === 0) return null;
-
   const ul = document.createElement("ul");
   ul.classList.add("nav-list");
-
   for (const page of pages) {
-    const li = document.createElement("li");
-    const hasChildren = page.children && page.children.length > 0;
+    if (page.link_location !== "menu") return null;
 
-    if (hasChildren) {
+    const li = document.createElement("li");
+    li.classList.add("nav-item");
+
+    // Falls Kinder existieren: <details>-Element erstellen
+    if (page.children && page.children.length > 0) {
       const details = document.createElement("details");
+      details.classList.add("child-menu");
+
       const summary = document.createElement("summary");
-      summary.textContent = page.title;
+      summary.classList.add("nav-summary");
+
+      const a = document.createElement("a");
+      a.href = page.fullPath;
+      a.textContent = page.title;
+      summary.appendChild(a);
 
       details.appendChild(summary);
 
-      // Das Kind-Menü wird zum Container für die nächste Ebene
+      // Rekursiv Kinder rendern
       const childrenUl = renderTree(page.children);
       if (childrenUl) {
-        // Wir fügen einen "Zurück"-Button am Anfang der Unterliste hinzu
-        const backBtn = document.createElement("button");
-        backBtn.textContent = "← Zurück";
-        backBtn.onclick = () => (details.open = false);
-        childrenUl.prepend(backBtn);
-
         details.appendChild(childrenUl);
       }
+
       li.appendChild(details);
     } else {
+      // Keine Kinder: Einfacher Link
       const a = document.createElement("a");
       a.href = page.fullPath;
       a.textContent = page.title;
       li.appendChild(a);
     }
+
     ul.appendChild(li);
   }
   return ul;
@@ -44,6 +49,6 @@ export function renderNavMenu(pages: Page[]) {
   const menu = renderTree(pages);
   const nav = document.createElement("nav");
   nav.classList.add("main-nav");
-  if (menu) nav.appendChild(menu);
+  nav.appendChild(menu || document.createTextNode("Keine Seiten verfügbar"));
   return nav;
 }

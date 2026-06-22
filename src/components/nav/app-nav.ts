@@ -1,9 +1,26 @@
 // components/nav/app-nav.ts
 import { pageStore } from "../../store/page.store";
 import { renderNavMenu } from "../../renderer/navMenu.renderer";
+import styles from "./app-nav.css?inline";
 import "./app-nav.css";
 
+const navTemplate = document.createElement("template");
+navTemplate.innerHTML = `
+  <nav id="nav-container"></nav>
+`;
+
 class AppNav extends HTMLElement {
+  constructor() {
+    super();
+    const shadowRoot = this.attachShadow({ mode: "open" });
+
+    // 1. Füge die CSS-Stile zum Shadow DOM hinzu
+    const styleElement = document.createElement("style");
+    styleElement.textContent = styles;
+    shadowRoot.appendChild(styleElement);
+    shadowRoot.appendChild(navTemplate.content.cloneNode(true));
+  }
+
   connectedCallback() {
     // 1. Sofort rendern, falls Daten im Cache (verhindert Flimmern)
     // if (sessionStorage.getItem("nav_tree")) {
@@ -31,7 +48,20 @@ class AppNav extends HTMLElement {
 
   render() {
     const pages = pageStore.pageTree || [];
-    this.appendChild(renderNavMenu(pages));
+
+    const container = this.shadowRoot?.getElementById("nav-container");
+    if (!container) return;
+    container.innerHTML = ""; // Container leeren
+    container.appendChild(renderNavMenu(pages));
+
+    // pages.forEach((page) => {
+    //   if (page.link_location === "menu") {
+    //     const item = document.createElement("nav-item");
+    //     item.setAttribute("href", page.fullPath);
+    //     item.textContent = page.title;
+    //     container.appendChild(item);
+    //   }
+    // });
   }
 }
 

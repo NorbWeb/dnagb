@@ -10,25 +10,14 @@ export class PageStore {
       `${import.meta.env.VITE_CMS_URL}/items/pages?filter={"status":{"_eq":"published"}}`,
     );
     const data = await res.json();
-    console.log(`📢 ~ PageStore ~ data:`, data);
+    const menuPages = data.data.filter(
+      (page: Page) => page.link_location === "menu",
+    );
 
-    const tree = this.createPageTree(data.data);
+    const tree = this.createPageTree(menuPages);
 
     this._pageTree.value = tree;
     this._pages.value = this.flattenTree(tree);
-
-    // const cachedData = sessionStorage.getItem("nav_tree");
-    // if (cachedData) {
-    //   this._pages.value = JSON.parse(cachedData);
-    //   console.info("get local storrage");
-    // } else {
-    //   const res = await fetch(`${environment.cmsUrl}/items/pages`);
-    //   const data = await res.json();
-    //   this._pages.value = data.data;
-    //   this._pageTree.value = this.createPageTree(data.data);
-    //   sessionStorage.setItem("nav_tree", JSON.stringify(pageStore.pages));
-    //   console.info("set page tree in local storrage");
-    // }
   }
 
   get pages() {
@@ -49,6 +38,7 @@ export class PageStore {
     const tree: Page[] = [];
 
     for (const item of pages) {
+      console.log(`📢 ~ PageStore ~ item:`, item);
       map[item.id] = { ...item, children: map[item.id]?.children || [] };
       const currentItem = map[item.id];
 
