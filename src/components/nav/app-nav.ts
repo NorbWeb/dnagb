@@ -1,5 +1,7 @@
 // components/nav/app-nav.ts
 import { pageStore } from "../../store/page.store";
+import { renderNavMenu } from "../../renderer/navMenu.renderer";
+import "./app-nav.css";
 
 class AppNav extends HTMLElement {
   connectedCallback() {
@@ -27,37 +29,9 @@ class AppNav extends HTMLElement {
     }
   }
 
-  private renderTree(pages: any[]): string {
-    if (!pages || pages.length === 0) return "";
-    return `
-      <ul>
-        ${pages
-          .map(
-            (page) => `
-          <li>
-            <a href="${page.fullPath || page.id}">${page.title}</a>
-            ${this.renderTree(page.children)}
-          </li>
-        `,
-          )
-          .join("")}
-      </ul>
-    `;
-  }
-
   render() {
     const pages = pageStore.pageTree || [];
-    this.innerHTML = `
-      <nav>
-        ${this.renderTree(pages)}
-      </nav>
-      <style>
-        nav ul { list-style: none; padding-left: 1rem; }
-        nav li { margin: 0.5rem 0; }
-        nav a { text-decoration: none; color: inherit; display: block; }
-        nav a:hover { color: blue; }
-      </style>
-    `;
+    this.appendChild(renderNavMenu(pages));
   }
 }
 
