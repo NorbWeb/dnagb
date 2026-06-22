@@ -1,40 +1,32 @@
+/* Verstecke das Untermenü standardmäßig */
+.child-menu {
+  display: none;
+}
+
+/* Zeige es nur, wenn das li das open-Attribut hat */
+.nav-item[open] > .child-menu {
+  display: block;
+}
+
+.child-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
 .nav-list {
   list-style: none;
-  padding-left: 0;
   margin: 0;
-}
-.nav-item {
-  margin: 0.25rem 0;
-}
-/* <details>-Element als Akkordeon */
-.nav-details {
-  margin: 0;
-}
-/* <summary> als Klickbare Zeile */
-.nav-summary {
-  cursor: pointer;
-  padding: 0.5rem 0;
-  display: block;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
   position: relative;
+  width: 100vw;
+  background-color: #fff;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
 }
-/* content: "▶ "; */
 
-/* Links im Menü */
-.nav-summary a,
-.nav-item > a {
-  text-decoration: none;
-  color: #333;
-  padding: 0.25rem 0.5rem;
-  display: inline-block;
-}
-/* Unterebenen einrücken */
-.nav-details .nav-list {
-  padding-left: 1.5rem;
-  margin-top: 0.25rem;
-}
-/* Hover-Effekt für Links */
-.nav-summary a:hover,
-.nav-item > a:hover {
-  background-color: #f0f0f0;
-  border-radius: 4px;
+.nav-item {
+  background-color: #fff;
+  padding: 1rem 1.5rem;
 }

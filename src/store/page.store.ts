@@ -38,7 +38,6 @@ export class PageStore {
     const tree: Page[] = [];
 
     for (const item of pages) {
-      console.log(`📢 ~ PageStore ~ item:`, item);
       map[item.id] = { ...item, children: map[item.id]?.children || [] };
       const currentItem = map[item.id];
 

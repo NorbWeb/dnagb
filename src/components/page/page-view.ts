@@ -30,7 +30,9 @@ class PageView extends HTMLElement {
     }
 
     if (page.content_radio_switch === "text_editor") {
-      article.innerHTML += page.text_editor ? page.text_editor : "Ohne Inhalt";
+      article.innerHTML += page.text_editor
+        ? page.text_editor
+        : `Die Seite „${page.title}“ hat noch keinen Inhalt.`;
     }
 
     if (
