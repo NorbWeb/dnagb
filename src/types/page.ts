@@ -6,7 +6,7 @@ export interface Page {
   date_updated: string;
   fullPath: string;
   id: string;
-  show_title: "true" | "hide";
+  show_titel: "true" | "hide";
   parent: string | null;
   slug: string;
   slug_manual_override: boolean;

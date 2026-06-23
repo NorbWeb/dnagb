@@ -21,7 +21,7 @@ class PageView extends Component {
     root.innerHTML = "";
     const article = document.createElement("article");
 
-    if (page.show_title === "true") {
+    if (page.show_titel === "true") {
       let title = document.createElement(`h1`);
       title.textContent = page.title;
       article.appendChild(title);
