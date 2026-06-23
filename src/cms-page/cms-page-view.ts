@@ -1,26 +1,24 @@
 // components/page/page-view.ts
-import { pageStore } from "../../store/page.store";
-import { renderBlock } from "../../renderer/block.renderer";
+import { pageStore } from "../store/page.store";
+import { renderBlock } from "../renderer/block.renderer";
+import { Component } from "../utils/base-component";
 
-class PageView extends HTMLElement {
-  static get observedAttributes() {
-    return ["path"];
-  }
-
-  attributeChangedCallback() {
-    this.render();
-  }
+class PageView extends Component {
+  // static get observedAttributes() {
+  //   return ["path"];
+  // }
 
   render() {
+    const root = this.shadowRoot!;
     const path = this.getAttribute("path");
     const page = pageStore.findByPath(path || "");
 
     if (!page) {
-      this.innerHTML = `<h1>404 - Seite nicht gefunden</h1>`;
+      root.innerHTML = `Seite konnte nicht geladen werden`;
       return;
     }
 
-    this.innerHTML = "";
+    root.innerHTML = "";
     const article = document.createElement("article");
 
     if (page.show_title === "true") {
@@ -44,7 +42,7 @@ class PageView extends HTMLElement {
       }
     }
 
-    this.appendChild(article);
+    root.appendChild(article);
   }
 }
 

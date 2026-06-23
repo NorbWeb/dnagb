@@ -1,10 +1,11 @@
 import "./styles/main.css";
 import "./components/button/button";
 import "./components/nav/app-nav";
-import "./components/page/page-view";
+import "./cms-page/cms-page-view";
 
 import { initRouter } from "./router";
 import { testStore } from "./store/test.store";
+import { pageStore } from "./store/page.store";
 
 // dev tools
 const setButton = document.getElementById("setButton");
@@ -40,5 +41,9 @@ if (import.meta.env.VITE_ENVIRONMENT !== "dev") {
   let devTools = document.getElementById("devTools");
   if (devTools) devTools.style.display = "none";
 }
+async function init() {
+  await pageStore.fetchPages();
+  initRouter();
+}
 
-initRouter();
+init();

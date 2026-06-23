@@ -6,26 +6,32 @@ export class PageStore {
   _pageTree = new Signal<Page[]>([]);
 
   async fetchPages() {
-    const res = await fetch(
-      `${import.meta.env.VITE_CMS_URL}/items/pages?filter={"status":{"_eq":"published"}}`,
-    );
-    const data = await res.json();
-    const menuPages = data.data.filter(
-      (page: Page) => page.link_location === "menu",
-    );
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_CMS_URL}/items/pages?filter={"status":{"_eq":"published"}}`,
+      );
 
-    const tree = this.createPageTree(menuPages);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-    this._pageTree.value = tree;
-    this._pages.value = this.flattenTree(tree);
+      const data = await response.json();
+
+      const menuPages = data.data.filter(
+        (page: Page) => page.link_location === "menu",
+      );
+      const tree = this.createPageTree(menuPages);
+      this._pageTree.value = tree;
+      this._pages.value = this.flattenTree(tree);
+    } catch (error) {
+      console.error("Fetch-Vorgang fehlgeschlagen:", error);
+    }
   }
 
   get pages() {
-    return this._pages.value;
+    return this._pages;
   }
 
   get pageTree() {
-    return this._pageTree.value;
+    return this._pageTree;
   }
 
   findByPath(pathName: string) {

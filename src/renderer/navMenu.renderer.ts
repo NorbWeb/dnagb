@@ -65,7 +65,7 @@ export function renderNavMenu(pages: Page[]) {
   const menu = renderTree(pages);
   const nav = document.createElement("nav");
   nav.classList.add("main-nav");
-  nav.appendChild(menu || document.createTextNode("Keine Seiten verfügbar"));
+  nav.appendChild(menu || document.createTextNode(""));
 
   // Event Delegation am Nav-Container
   nav.addEventListener("click", (e) => {
