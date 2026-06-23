@@ -15,6 +15,8 @@ export interface Page {
   status: "draft" | "published";
   title: string;
   user_updated: string | null;
+  static_page?: false;
+  component?: null;
 }
 
 export interface BlockEditor {

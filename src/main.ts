@@ -1,7 +1,7 @@
 import "./styles/main.css";
+import "./cms-page/cms-page-view";
 import "./components/button/button";
 import "./components/nav/app-nav";
-import "./cms-page/cms-page-view";
 
 import { initRouter } from "./router";
 import { testStore } from "./store/test.store";

@@ -1,5 +1,6 @@
 import { Signal } from "./signal";
 import type { Page } from "../types/page";
+import type { StaticPage } from "../types/staticPage";
 
 export class PageStore {
   _pages = new Signal<Page[]>([]);
@@ -15,10 +16,52 @@ export class PageStore {
 
       const data = await response.json();
 
-      const menuPages = data.data.filter(
-        (page: Page) => page.link_location === "menu",
-      );
-      const tree = this.createPageTree(menuPages);
+      const staticRoutes: StaticPage[] = [
+        {
+          title: "Home",
+          link_location: "menu",
+          fullPath: "/home",
+          sort: 0,
+          component: "app-home",
+          static_page: true,
+          parent: null,
+          status: "published",
+        },
+        {
+          title: "Aktuelles",
+          link_location: "menu",
+          fullPath: "/aktuelles",
+          sort: 0,
+          component: "app-news",
+          static_page: true,
+          parent: null,
+          status: "published",
+        },
+        {
+          title: "Naginata Gruppen",
+          link_location: "menu",
+          fullPath: "/naginata-gruppen",
+          sort: 0,
+          component: "app-dojo",
+          static_page: true,
+          parent: null,
+          status: "draft",
+        },
+      ];
+
+      const allMenuPages = [
+        ...staticRoutes.filter((route) => route.status === "published"),
+        ...data.data.filter((page: Page) => page.link_location === "menu"),
+      ];
+
+      allMenuPages.sort((a, b) => {
+        const sortA = a.sort === 0 || !a.sort ? -1 : a.sort;
+        const sortB = b.sort === 0 || !b.sort ? -1 : b.sort;
+
+        return sortA - sortB;
+      });
+
+      const tree = this.createPageTree(allMenuPages);
       this._pageTree.value = tree;
       this._pages.value = this.flattenTree(tree);
     } catch (error) {
@@ -35,7 +78,9 @@ export class PageStore {
   }
 
   findByPath(pathName: string) {
-    let result = this._pages.value.find((f: Page) => f.fullPath === pathName);
+    let result = this._pages.value.find(
+      (f: Page | StaticPage) => f.fullPath === pathName,
+    );
     return result;
   }
 
@@ -74,6 +119,9 @@ export class PageStore {
 
   updatePaths(nodes: Page[], parentPath = ""): Page[] {
     for (const node of nodes) {
+      if (node.static_page) {
+        continue;
+      }
       node.fullPath = `${parentPath}/${node.slug}`.replace(/\/+/g, "/");
       if (node.children.length > 0) {
         this.updatePaths(node.children, node.fullPath);

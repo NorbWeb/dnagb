@@ -1,32 +1,18 @@
-class AppButton extends HTMLElement {
+import { Component } from "../../utils/base-component";
+import html from "./button.html?raw";
+import styles from "./button.css?inline";
+
+class Button extends Component {
+  static html = html;
+  static styles = styles;
+
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
-
-    // Nur das visuelle Template. Keine Logik, keine Events.
-    this.shadowRoot!.innerHTML = `
-      <style>
-        :host {
-          display: inline-block;
-        }
-        button {
-          padding: var(--app-button-padding, 10px 20px);
-          background-color: var(--app-button-bg, blue);
-          color: white;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-        }
-      </style>
-      <button>
-        <slot></slot>
-      </button>
-    `;
   }
+
+  render() {}
 }
 
 if (!customElements.get("app-button")) {
-  customElements.define("app-button", AppButton);
+  customElements.define("app-button", Button);
 }
-
-export default AppButton;
