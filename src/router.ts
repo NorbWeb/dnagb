@@ -9,6 +9,11 @@ async function handleNavigation(pathname: string) {
   const main = document.querySelector("main");
   if (!main) return;
 
+  if (pathname === "" || pathname === "/") {
+    history.replaceState(null, "", "/home");
+    return handleNavigation("/home");
+  }
+
   // Hole die Seite direkt aus deinem aufbereiteten Store
   const page = pageStore.findByPath(pathname);
 
