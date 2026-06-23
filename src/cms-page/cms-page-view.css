@@ -1,0 +1,8 @@
+#dynamic-content {
+  max-width: var(--max-content-width, 1080px);
+  margin: auto;
+
+  table {
+    min-width: 1200px;
+  }
+}

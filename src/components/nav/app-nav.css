@@ -1,3 +1,12 @@
+#nav-container {
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+}
+
+.main-nav {
+  max-width: var(--max-layout-width, 1400px);
+  margin: auto;
+}
+
 /* Verstecke das Untermenü standardmäßig */
 .child-menu {
   display: none;
@@ -21,9 +30,7 @@
   display: flex;
   gap: 1rem;
   position: relative;
-  width: 100vw;
   background-color: #fff;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
 }
 
 .nav-item {

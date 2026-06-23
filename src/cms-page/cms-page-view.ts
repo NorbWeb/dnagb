@@ -2,24 +2,28 @@
 import { pageStore } from "../store/page.store";
 import { renderBlock } from "../renderer/block.renderer";
 import { Component } from "../utils/base-component";
-
+import contentHtml from "./cms-page-view.html?raw";
+import styles from "./cms-page-view.css?inline";
 class PageView extends Component {
+  static html = contentHtml;
+  static styles = styles;
   // static get observedAttributes() {
   //   return ["path"];
   // }
 
   render() {
-    const root = this.shadowRoot!;
     const path = this.getAttribute("path");
     const page = pageStore.findByPath(path || "");
 
+    const article = this.shadowRoot?.getElementById("dynamic-content");
+    if (!article) return;
+
     if (!page) {
-      root.innerHTML = `Seite konnte nicht geladen werden`;
+      article.innerHTML = `Seite konnte nicht geladen werden`;
       return;
     }
 
-    root.innerHTML = "";
-    const article = document.createElement("article");
+    article.innerHTML = "";
 
     if (page.show_titel === "true") {
       let title = document.createElement(`h1`);
@@ -41,8 +45,6 @@ class PageView extends Component {
         article.appendChild(renderBlock(block));
       }
     }
-
-    root.appendChild(article);
   }
 }
 
