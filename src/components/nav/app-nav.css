@@ -7,22 +7,6 @@
   margin: auto;
 }
 
-/* Verstecke das Untermenü standardmäßig */
-.child-menu {
-  display: none;
-}
-
-/* Zeige es nur, wenn das li das open-Attribut hat */
-.nav-item[open] > .child-menu {
-  display: block;
-}
-
-.child-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-}
-
 .nav-list {
   list-style: none;
   margin: 0;
@@ -33,7 +17,31 @@
   background-color: #fff;
 }
 
+/* Verstecke das Untermenü standardmäßig */
+.child-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
 .nav-item {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
   background-color: #fff;
   padding: 1rem 1.5rem;
+
+  &[open] {
+    > .child-menu {
+      display: block;
+    }
+  }
+
+  .menu-trigger {
+    padding: 0.5rem;
+    min-width: 2rem;
+    cursor: pointer;
+    border: 1px solid black;
+  }
 }
