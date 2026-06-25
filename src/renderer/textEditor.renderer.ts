@@ -1,13 +1,15 @@
-export function modifiedTextEditor(text: string): string {
+import type { Page } from "../types/page";
+
+export function modifiedTextEditor(page: Page): string {
   const parser = new DOMParser();
-  const doc = parser.parseFromString(text, "text/html");
+  const doc = parser.parseFromString(page.text_editor, "text/html");
 
   const tables = doc.querySelectorAll("table");
 
   for (const table of tables) {
     prepareTableForResponsive(table);
     const wrapper = document.createElement("div");
-    wrapper.classList.add("table-wrapper");
+    wrapper.classList.add("table-wrapper", page.table_break_view);
 
     table.parentNode?.insertBefore(wrapper, table);
     wrapper.appendChild(table);

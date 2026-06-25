@@ -17,6 +17,7 @@ export interface Page {
   user_updated: string | null;
   static_page?: false;
   component?: null;
+  table_break_view: string;
 }
 
 export interface BlockEditor {

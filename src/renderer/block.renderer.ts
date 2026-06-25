@@ -44,13 +44,14 @@ export const renderBlock = (block: any): HTMLElement => {
       return ul;
 
     case "table":
+      let wrapper = document.createElement("div");
+      wrapper.classList.add("table-wrapper");
       let table = document.createElement("table");
       let thead = document.createElement("thead");
       let tbody = document.createElement("tbody");
       let asHead = block.data.withHeadings;
       let headerLabels: string[] = [];
 
-      console.log(`📢 ~ data.content:`, block.data);
       for (const tableRow of block.data.content) {
         let row = document.createElement("tr");
         for (const tableCell of tableRow) {
@@ -81,7 +82,8 @@ export const renderBlock = (block: any): HTMLElement => {
       }
       table.appendChild(thead);
       table.appendChild(tbody);
-      return table;
+      wrapper.appendChild(table);
+      return wrapper;
 
     case "nestedlist":
       function generateListElements(block: any) {

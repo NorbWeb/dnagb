@@ -1,10 +1,16 @@
 #nav-container {
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow);
 }
 
 .main-nav {
-  max-width: var(--max-layout-width, 1400px);
+  max-width: var(--container-width);
   margin: auto;
+  user-select: none;
+
+  .nav-list {
+    display: flex;
+    justify-content: space-evenly;
+  }
 }
 
 .nav-list {
@@ -23,6 +29,8 @@
   position: absolute;
   top: 100%;
   left: 0;
+  width: 100%;
+  box-shadow: var(--shadow);
 }
 
 .nav-item {
@@ -38,9 +46,17 @@
     }
   }
 
+  a {
+    flex: 1 1 100%;
+  }
+
   .menu-trigger {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 0.5rem;
-    min-width: 2rem;
+    width: 2rem;
     cursor: pointer;
     border: 1px solid black;
   }

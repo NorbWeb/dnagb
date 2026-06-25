@@ -35,7 +35,7 @@ class PageView extends Component {
 
     if (page.content_radio_switch === "text_editor") {
       article.innerHTML += page.text_editor
-        ? modifiedTextEditor(page.text_editor)
+        ? modifiedTextEditor(page)
         : `Die Seite „${page.title}“ hat noch keinen Inhalt.`;
     }
 

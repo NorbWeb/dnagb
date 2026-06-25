@@ -2,4 +2,8 @@
   font-size: 16px;
   --primary: #f2a606;
   --secondary: #15605f;
+  --shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  --container-width: 1200px;
+  --content-width: 960px;
 }
