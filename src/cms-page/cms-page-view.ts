@@ -1,9 +1,11 @@
 // components/page/page-view.ts
 import { pageStore } from "../store/page.store";
 import { renderBlock } from "../renderer/block.renderer";
+import { modifiedTextEditor } from "../renderer/textEditor.renderer";
 import { Component } from "../utils/base-component";
 import contentHtml from "./cms-page-view.html?raw";
 import styles from "./cms-page-view.css?inline";
+
 class PageView extends Component {
   static html = contentHtml;
   static styles = styles;
@@ -33,7 +35,7 @@ class PageView extends Component {
 
     if (page.content_radio_switch === "text_editor") {
       article.innerHTML += page.text_editor
-        ? page.text_editor
+        ? modifiedTextEditor(page.text_editor)
         : `Die Seite „${page.title}“ hat noch keinen Inhalt.`;
     }
 
