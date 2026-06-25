@@ -47,8 +47,10 @@ export const renderBlock = (block: any): HTMLElement => {
       let table = document.createElement("table");
       let thead = document.createElement("thead");
       let tbody = document.createElement("tbody");
-      let asHead = true;
+      let asHead = block.data.withHeadings;
+      let headerLabels: string[] = [];
 
+      console.log(`📢 ~ data.content:`, block.data);
       for (const tableRow of block.data.content) {
         let row = document.createElement("tr");
         for (const tableCell of tableRow) {
@@ -56,7 +58,25 @@ export const renderBlock = (block: any): HTMLElement => {
           cell.innerHTML = tableCell;
           row.appendChild(cell);
         }
-        asHead ? thead.appendChild(row) : tbody.appendChild(row);
+        if (asHead) {
+          row.classList.add("table-header-row");
+          headerLabels = Array.from(row.children).map((cell) => {
+            return cell.textContent?.trim() || "";
+          });
+          thead.appendChild(row);
+        } else {
+          row.classList.add("table-data-row");
+          const cells = Array.from(row.querySelectorAll("td"));
+
+          cells.forEach((td, colIndex) => {
+            const label = headerLabels[colIndex];
+            if (label) {
+              td.setAttribute("data-label", label);
+            }
+          });
+
+          tbody.appendChild(row);
+        }
         asHead = false;
       }
       table.appendChild(thead);
