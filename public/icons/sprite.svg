@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+
+  <symbol id="arrow-drop-down" viewBox="0 -960 960 960">
+    <path d="M480-360 280-560h400L480-360Z" fill="currentColor"/>
+  </symbol>
+
+  <symbol id="arrow-drop-up" viewBox="0 -960 960 960">
+   <path d="m280-400 200-200 200 200H280Z" fill="currentColor"/>
+  </symbol>
+
+</svg>

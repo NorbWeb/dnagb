@@ -44,7 +44,7 @@ class PageView extends Component {
       page.block_editor?.blocks
     ) {
       for (const block of page.block_editor.blocks) {
-        article.appendChild(renderBlock(block));
+        article.appendChild(renderBlock(block, page));
       }
     }
   }

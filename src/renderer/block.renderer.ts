@@ -1,9 +1,11 @@
+import type { Page } from "../types/page";
+
 interface BlockEditorList {
   content: string;
   items: BlockEditorList[];
 }
 
-export const renderBlock = (block: any): HTMLElement => {
+export const renderBlock = (block: any, page: Page): HTMLElement => {
   switch (block.type) {
     case "header":
       let header = document.createElement(`h${block.data.level}`);
@@ -44,8 +46,9 @@ export const renderBlock = (block: any): HTMLElement => {
       return ul;
 
     case "table":
+      console.log(page);
       let wrapper = document.createElement("div");
-      wrapper.classList.add("table-wrapper");
+      wrapper.classList.add("table-wrapper", page.table_break_view);
       let table = document.createElement("table");
       let thead = document.createElement("thead");
       let tbody = document.createElement("tbody");

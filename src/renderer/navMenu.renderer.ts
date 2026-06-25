@@ -1,4 +1,5 @@
 import { type Page } from "../types/page";
+import { icon } from "../utils/icon";
 
 function renderTree(pages: Page[]): HTMLElement | null {
   if (!pages?.length) return null;
@@ -22,7 +23,7 @@ function renderTree(pages: Page[]): HTMLElement | null {
     if (page.children?.length > 0) {
       const trigger = document.createElement("span");
       trigger.classList.add("menu-trigger");
-      trigger.textContent = "↓";
+      trigger.appendChild(icon("arrow-drop-down"));
 
       trigger.addEventListener("click", (e) => {
         e.stopPropagation();
@@ -34,14 +35,19 @@ function renderTree(pages: Page[]): HTMLElement | null {
         const allItems = ul.querySelectorAll(".nav-item");
         allItems.forEach((item) => {
           item.removeAttribute("open");
-          const t = item.querySelector(".menu-trigger");
-          if (t) t.textContent = "↓";
+          const t = item.querySelector(".menu-trigger > svg");
+          if (t) {
+            t.replaceWith(icon("arrow-drop-down"));
+          }
         });
 
         // 3. Wenn es zu war, jetzt öffnen
         if (isOpening) {
           li.setAttribute("open", "");
-          trigger.textContent = "↑";
+          const t = li.querySelector(".menu-trigger > svg");
+          if (t) {
+            t.replaceWith(icon("arrow-drop-up"));
+          }
         }
       });
 
