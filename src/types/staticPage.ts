@@ -7,4 +7,5 @@ export interface StaticPage {
   static_page: true;
   parent: string | null;
   status: "draft" | "published";
+  id: string;
 }

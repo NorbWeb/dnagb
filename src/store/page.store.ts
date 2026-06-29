@@ -7,6 +7,44 @@ export class PageStore {
   _pageTree = new Signal<Page[]>([]);
 
   async fetchPages() {
+    const staticRoutes: StaticPage[] = [
+      {
+        title: "Home",
+        link_location: "menu",
+        fullPath: "/home",
+        sort: 0,
+        component: "app-home",
+        static_page: true,
+        parent: null,
+        status: "published",
+        id: "home",
+      },
+      {
+        title: "Aktuelles",
+        link_location: "menu",
+        fullPath: "/aktuelles",
+        sort: 0,
+        component: "app-news",
+        static_page: true,
+        parent: null,
+        status: "published",
+        id: "news",
+      },
+      {
+        title: "Naginata Gruppen",
+        link_location: "menu",
+        fullPath: "/naginata-gruppen",
+        sort: 0,
+        component: "app-dojo",
+        static_page: true,
+        parent: null,
+        status: "draft",
+        id: "naginata-group",
+      },
+    ];
+
+    let cmsData: Page[] = [];
+
     try {
       const response = await fetch(
         `${import.meta.env.VITE_CMS_URL}/items/pages?filter={"status":{"_eq":"published"}}`,
@@ -15,58 +53,25 @@ export class PageStore {
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
       const data = await response.json();
-
-      const staticRoutes: StaticPage[] = [
-        {
-          title: "Home",
-          link_location: "menu",
-          fullPath: "/home",
-          sort: 0,
-          component: "app-home",
-          static_page: true,
-          parent: null,
-          status: "published",
-        },
-        {
-          title: "Aktuelles",
-          link_location: "menu",
-          fullPath: "/aktuelles",
-          sort: 0,
-          component: "app-news",
-          static_page: true,
-          parent: null,
-          status: "published",
-        },
-        {
-          title: "Naginata Gruppen",
-          link_location: "menu",
-          fullPath: "/naginata-gruppen",
-          sort: 0,
-          component: "app-dojo",
-          static_page: true,
-          parent: null,
-          status: "draft",
-        },
-      ];
-
-      const allMenuPages = [
-        ...staticRoutes.filter((route) => route.status === "published"),
-        ...data.data.filter((page: Page) => page.link_location === "menu"),
-      ];
-
-      allMenuPages.sort((a, b) => {
-        const sortA = a.sort === 0 || !a.sort ? -1 : a.sort;
-        const sortB = b.sort === 0 || !b.sort ? -1 : b.sort;
-
-        return sortA - sortB;
-      });
-
-      const tree = this.createPageTree(allMenuPages);
-      this._pageTree.value = tree;
-      this._pages.value = this.flattenTree(tree);
+      cmsData = data.data || [];
     } catch (error) {
       console.error("Fetch-Vorgang fehlgeschlagen:", error);
     }
+    const allMenuPages: (Page | StaticPage)[] = [
+      ...staticRoutes.filter((route) => route.status === "published"),
+      ...cmsData.filter((page: Page) => page.link_location === "menu"),
+    ];
+
+    allMenuPages.sort((a, b) => {
+      const sortA = a.sort === 0 || !a.sort ? -1 : a.sort;
+      const sortB = b.sort === 0 || !b.sort ? -1 : b.sort;
+
+      return sortA - sortB;
+    });
+
+    const tree = this.createPageTree(allMenuPages);
+    this._pageTree.value = tree;
+    this._pages.value = this.flattenTree(tree);
   }
 
   get pages() {
@@ -84,7 +89,7 @@ export class PageStore {
     return result;
   }
 
-  createPageTree(pages: Page[]) {
+  createPageTree(pages: (Page | StaticPage)[]) {
     const map: Record<string, any> = {};
     const tree: Page[] = [];
 
