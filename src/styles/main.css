@@ -3,10 +3,7 @@
 
 main {
   display: grid;
-  grid-template-columns:
-    1fr
-    minmax(auto, var(--content-width))
-    1fr;
+  grid-template-columns: var(--content-grid);
 
   > * {
     grid-column: 2;

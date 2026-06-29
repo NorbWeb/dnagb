@@ -1,9 +1,20 @@
 :root {
+  /* font */
   font-size: 16px;
+
+  /* color */
   --primary: #f2a606;
   --secondary: #15605f;
-  --shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
-  --container-width: 1200px;
+  /* layout */
   --content-width: 960px;
+  --content-grid: minmax(1rem, 1fr) minmax(auto, var(--content-width))
+    minmax(1rem, 1fr);
+  --container-width: 1200px;
+  --container-grid: minmax(1rem, 1fr) minmax(auto, var(--container-width))
+    minmax(1rem, 1fr);
+
+  /* effect */
+  --shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  --border-radius: 0.5rem;
 }

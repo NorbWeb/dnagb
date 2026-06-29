@@ -81,8 +81,8 @@ export function renderNavMenu(pages: Page[]) {
       const allItems = nav.querySelectorAll(".nav-item");
       allItems.forEach((item) => {
         item.removeAttribute("open");
-        const trigger = item.querySelector(".menu-trigger");
-        if (trigger) trigger.textContent = "↓";
+        const trigger = item.querySelector(".menu-trigger > svg");
+        if (trigger) trigger.replaceWith(icon("arrow-drop-down"));
       });
     }
   });
