@@ -1,0 +1,11 @@
+#news-container {
+  --min-col-size: 300px;
+
+  display: grid;
+  gap: 1rem;
+
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(var(--min-col-size), 100%), 1fr)
+  );
+}

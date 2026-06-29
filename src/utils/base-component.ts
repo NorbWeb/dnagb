@@ -24,6 +24,23 @@ export class Component extends HTMLElement {
     }
   }
 
+  static get observedAttributes() {
+    // Hier erlauben wir Kind-Klassen, eigene Attribute zu definieren
+    return (this as any).watchedAttributes || [];
+  }
+
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    if (oldValue !== newValue) {
+      this.render();
+
+      // Optional: Spezifische Setter aufrufen, falls definiert
+      const setterName = `on${name.charAt(0).toUpperCase() + name.slice(1)}Change`;
+      if (typeof (this as any)[setterName] === "function") {
+        (this as any)[setterName](newValue);
+      }
+    }
+  }
+
   protected watch(signal: any, callback?: () => void) {
     const cb = callback ? callback : () => this.render();
 

@@ -6,6 +6,8 @@ import "./components/nav/app-nav";
 import { initRouter } from "./router";
 import { testStore } from "./store/test.store";
 import { pageStore } from "./store/page.store";
+import { eventStore } from "./store/event.store";
+import { newsStore } from "./store/news.store";
 
 // dev tools
 const setButton = document.getElementById("setButton");
@@ -41,9 +43,12 @@ if (import.meta.env.VITE_ENVIRONMENT !== "dev") {
   let devTools = document.getElementById("devTools");
   if (devTools) devTools.style.display = "none";
 }
+
 async function init() {
   await pageStore.fetchPages();
   initRouter();
+  await eventStore.fetchEvents();
+  await newsStore.fetchNews();
 }
 
 init();
