@@ -1,0 +1,10 @@
+.hero {
+  background-color: pink;
+  height: 20rem;
+}
+
+img.banner {
+  object-fit: cover;
+  width: 100%;
+  height: 20rem;
+}

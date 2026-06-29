@@ -10,6 +10,11 @@ class Home extends Component {
     super();
   }
 
+  connectedCallback() {
+    // Füge dem Host-Element eine Klasse hinzu
+    this.classList.add("full-width");
+  }
+
   render() {}
 }
 
