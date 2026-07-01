@@ -9,7 +9,6 @@ import { renderNewsCard } from "../../renderer/card.render";
 class News extends Component {
   static html = html;
   static styles = styles;
-  private cardCache: Map<any, HTMLElement> = new Map();
 
   constructor() {
     super();
@@ -20,18 +19,12 @@ class News extends Component {
   render() {
     const container = this.shadowRoot?.getElementById("news-container");
     if (!container) return;
+    container.innerHTML = "";
 
     for (const element of feedStore.filteredContent) {
       const card = renderNewsCard(element);
       container.appendChild(card);
     }
-
-    // this.cardCache.forEach((card, id) => {
-    //   if (!data.find((d) => d.id === id)) {
-    //     card.remove();
-    //     this.cardCache.delete(id);
-    //   }
-    // });
 
     this.shadowRoot?.querySelectorAll("app-button").forEach((btn) => {
       btn.addEventListener("click", () => {
