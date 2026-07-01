@@ -27,6 +27,13 @@ class Home extends Component {
     container.innerHTML = "";
 
     // event list
+    let listContainer = document.createElement("div");
+    listContainer.classList.add("list-card");
+    let title = document.createElement("h2");
+    title.classList.add("title");
+    title.textContent = "Anstehende Events";
+    listContainer.appendChild(title);
+
     let eventList = document.createElement("ul");
     eventList.classList.add("event-list");
     if (feedStore.futureEvents.length < 1) {
@@ -42,7 +49,8 @@ class Home extends Component {
         eventList.appendChild(li);
       }
     }
-    container.appendChild(eventList);
+    listContainer.appendChild(eventList);
+    container.appendChild(listContainer);
 
     for (const element of feedStore.lastNews) {
       const card = renderNewsCard(element);

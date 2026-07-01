@@ -26,6 +26,7 @@
   --shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   --shadow-big: 4px 4px 10px rgba(0, 0, 0, 0.35);
   --border-radius: 0.5rem;
+  --transition: all 350ms ease;
 }
 
 @media screen and (max-width: 900px) {

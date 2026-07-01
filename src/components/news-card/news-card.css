@@ -1,10 +1,11 @@
 .card {
   border-radius: var(--border-radius);
-  border: 1px solid black;
   overflow: hidden;
   height: 100%;
-  transition: all 350ms ease;
+  transition: var(--transition);
   background-color: var(--element-bg);
+  position: relative;
+  filter: drop-shadow(var(--shadow));
 
   &.is-past {
     opacity: 0.6;
@@ -67,12 +68,12 @@
   margin-top: auto;
   color: var(--secondary, blue);
   font-weight: 700;
-  transition: all 350ms ease;
+  transition: var(--transition);
   position: relative;
   width: fit-content;
 
   &::after {
-    transition: all 350ms ease;
+    transition: var(--transition);
     content: "";
     display: block;
     position: relative;

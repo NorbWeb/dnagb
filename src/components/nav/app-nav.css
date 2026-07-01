@@ -1,5 +1,6 @@
 #nav-container {
   box-shadow: var(--shadow);
+  background-color: var(--element-bg);
 }
 
 .main-nav {
@@ -20,7 +21,7 @@
   display: flex;
   gap: 1rem;
   position: relative;
-  background-color: #fff;
+  background-color: var(--element-bg);
 }
 
 /* Verstecke das Untermenü standardmäßig */
@@ -37,7 +38,7 @@
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  background-color: #fff;
+  background-color: var(--element-bg);
   padding: 1rem 1.5rem;
 
   &[open] {
