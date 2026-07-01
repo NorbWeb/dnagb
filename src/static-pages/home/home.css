@@ -53,10 +53,14 @@
   padding: 1rem;
 }
 
-.card-grid {
-  max-width: var(--container-width);
-  margin: auto;
-  padding: var(--gap);
+#info {
+  display: grid;
+  grid-template-columns: var(--container-grid);
+  padding: var(--gap) 0;
+}
+
+.info-content {
+  grid-column: 2;
 
   --min-col-size: 300px;
 

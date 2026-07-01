@@ -1,3 +1,7 @@
+:host {
+  width: 100%;
+}
+
 .card {
   border-radius: var(--border-radius);
   overflow: hidden;
@@ -6,10 +10,11 @@
   background-color: var(--element-bg);
   position: relative;
   filter: drop-shadow(var(--shadow));
+  width: 100%;
 
   &.is-past {
     opacity: 0.6;
-    filter: grayscale(0.8), drop-shadow(var(--shadow-big));
+    filter: grayscale(0.8) drop-shadow(var(--shadow));
 
     &::before {
       content: "Abgelaufen";
@@ -27,6 +32,10 @@
   &:hover,
   &:focus-visible {
     filter: drop-shadow(var(--shadow-big));
+
+    &.is-past {
+      filter: grayscale(0.8) drop-shadow(var(--shadow-big));
+    }
 
     .fake-link::after {
       width: 100%;

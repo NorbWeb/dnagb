@@ -14,11 +14,11 @@
 
   /* layout */
   --content-width: 960px;
-  --content-grid: minmax(1rem, 1fr) minmax(auto, var(--content-width))
-    minmax(1rem, 1fr);
+  --content-grid: minmax(var(--gap), 1fr) minmax(auto, var(--content-width))
+    minmax(var(--gap), 1fr);
   --container-width: 1200px;
-  --container-grid: minmax(1rem, 1fr) minmax(auto, var(--container-width))
-    minmax(1rem, 1fr);
+  --container-grid: minmax(var(--gap), 1fr) minmax(auto, var(--container-width))
+    minmax(var(--gap), 1fr);
   --padding: 0.75rem 1.25rem;
   --gap: 2rem;
 

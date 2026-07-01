@@ -16,8 +16,14 @@ class News extends Component {
     this.watch(feedStore._filter);
   }
 
+  connectedCallback() {
+    // Füge dem Host-Element eine Klasse hinzu
+    super.connectedCallback();
+    this.classList.add("container-width");
+  }
+
   render() {
-    const container = this.shadowRoot?.getElementById("news-container");
+    const container = this.shadowRoot?.querySelector(".news-content");
     if (!container) return;
     container.innerHTML = "";
 

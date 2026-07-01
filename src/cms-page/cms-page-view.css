@@ -1,3 +1,11 @@
+#dynamic-content {
+  padding-bottom: var(--gap);
+
+  :last-child {
+    margin-bottom: 0;
+  }
+}
+
 .table-wrapper {
   max-width: 100%;
   overflow: hidden;

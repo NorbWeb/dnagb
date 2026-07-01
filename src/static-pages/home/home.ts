@@ -22,7 +22,7 @@ class Home extends Component {
   }
 
   render() {
-    const container = this.shadowRoot?.getElementById("info");
+    const container = this.shadowRoot?.querySelector(".info-content");
     if (!container) return;
     container.innerHTML = "";
 

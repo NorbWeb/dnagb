@@ -12,6 +12,12 @@ main {
   > .full-width {
     grid-column: 1 / -1;
   }
+
+  > .container-width {
+    grid-column: 1 / -1;
+    max-width: var(--container-width);
+    margin: auto;
+  }
 }
 
 .icon {
