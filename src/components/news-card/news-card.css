@@ -1,29 +1,61 @@
 .card {
-  min-height: 20rem;
   border-radius: var(--border-radius);
   border: 1px solid black;
   overflow: hidden;
-  display: flex;
+  height: 100%;
+
+  &.is-past {
+    opacity: 0.6;
+    filter: grayscale(0.8);
+    background-color: #f9f9f9;
+
+    ::before {
+      content: "Abgelaufen";
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 1);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.link {
+  display: inline-flex;
   flex-direction: column;
+  height: 100%;
+  width: 100%;
+  color: unset;
+  text-decoration: none;
+}
 
-  .card-content {
-    flex-direction: column;
-    display: flex;
-    padding: var(--padding);
-    gap: 0.5rem;
-  }
+.card-content {
+  flex-direction: column;
+  display: flex;
+  padding: var(--padding);
+  gap: 0.5rem;
+  flex: 1;
+}
 
-  .image {
-    width: 100%;
-    min-width: 100%;
-    height: 12.5rem;
-    min-height: 10rem;
-    object-fit: cover;
-    background-color: pink;
-  }
+.image {
+  width: 100%;
+  min-width: 100%;
+  height: 12.5rem;
+  min-height: 10rem;
+  object-fit: cover;
+  background-color: pink;
+}
 
-  .title {
-    font-size: 1.5rem;
-    font-weight: 700;
-  }
+.title {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.fake-link {
+  margin-top: auto;
+  color: var(--secondary, blue);
+  font-weight: 700;
 }

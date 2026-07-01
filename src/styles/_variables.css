@@ -1,6 +1,11 @@
 :root {
   /* font */
   font-size: 16px;
+  font-family:
+    Verdana,
+    Open Sans,
+    Helvetica Neue,
+    sans-serif;
 
   /* color */
   --primary: #f2a606;

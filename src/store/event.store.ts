@@ -16,9 +16,7 @@ export class EventStore {
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
       const data = await response.json();
-      for (const element of data.data) {
-        element.fe_type = "event";
-      }
+
       cmsData = data.data || [];
     } catch (error) {
       console.error("Fetch-Vorgang fehlgeschlagen:", error);

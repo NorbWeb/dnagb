@@ -15,9 +15,7 @@ export class NewsStore {
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
       const data = await response.json();
-      for (const element of data.data) {
-        element.fe_type = "news";
-      }
+
       cmsData = data.data || [];
     } catch (error) {
       console.error("Fetch-Vorgang fehlgeschlagen:", error);

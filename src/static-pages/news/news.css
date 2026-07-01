@@ -3,6 +3,7 @@
 
   display: grid;
   gap: 1rem;
+  align-items: stretch;
 
   grid-template-columns: repeat(
     auto-fit,

@@ -19,4 +19,6 @@ export interface NagEvent {
   postal_code: string;
   image: string;
   event_files: any[];
+  fe_type: string;
+  isPast: boolean;
 }

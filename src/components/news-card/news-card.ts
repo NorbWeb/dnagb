@@ -6,7 +6,15 @@ class NewsCard extends Component {
   static html = html;
   static styles = styles;
   static get watchedAttributes() {
-    return ["title", "date", "teaser", "image-src", "link-url", "img-alt"];
+    return [
+      "title",
+      "date",
+      "teaser",
+      "image-src",
+      "link-url",
+      "img-alt",
+      "is-past",
+    ];
   }
 
   constructor() {
@@ -14,6 +22,10 @@ class NewsCard extends Component {
   }
 
   render() {
+    const attrIsPast = this.getAttribute("is-past") || "false";
+
+    const attrLink = this.getAttribute("link-url") || "#";
+
     const attrImgSrc = this.getAttribute("image-src") || "";
     const attrImgAlt = this.getAttribute("img-alt") || "Bild";
 
@@ -21,8 +33,17 @@ class NewsCard extends Component {
     const attrTeaser = this.getAttribute("teaser") || "Teaser";
     const attrDate = this.getAttribute("date") || "Date";
 
-    const attrLink = this.getAttribute("link-url") || "#";
     const attrLinkText = this.getAttribute("link-text") || "Mehr";
+
+    const card = this.shadowRoot?.querySelector(".card");
+    if (card && attrIsPast === "true") {
+      card.classList.add("is-past");
+    }
+
+    const a = this.shadowRoot?.querySelector("a");
+    if (a) {
+      a.setAttribute("href", attrLink);
+    }
 
     const img = this.shadowRoot?.querySelector(".image");
     if (img) {
@@ -45,10 +66,9 @@ class NewsCard extends Component {
       teaser.textContent = attrTeaser;
     }
 
-    const a = this.shadowRoot?.querySelector("a");
-    if (a) {
-      a.setAttribute("href", attrLink);
-      a.textContent = attrLinkText;
+    const fakeLink = this.shadowRoot?.querySelector(".fake-link");
+    if (fakeLink) {
+      fakeLink.textContent = attrLinkText;
     }
   }
 }

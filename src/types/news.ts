@@ -11,5 +11,7 @@ export interface News {
   title: string;
   announcement: string;
   date_start: string;
+  date_end: string | null;
   author: string;
+  fe_type: string;
 }
