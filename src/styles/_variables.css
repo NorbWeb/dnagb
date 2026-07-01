@@ -10,6 +10,7 @@
   /* color */
   --primary: #f2a606;
   --secondary: #15605f;
+  --element-bg: #fff;
 
   /* layout */
   --content-width: 960px;
@@ -23,6 +24,7 @@
 
   /* effect */
   --shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  --shadow-big: 4px 4px 10px rgba(0, 0, 0, 0.35);
   --border-radius: 0.5rem;
 }
 

@@ -3,13 +3,14 @@
   border: 1px solid black;
   overflow: hidden;
   height: 100%;
+  transition: all 350ms ease;
+  background-color: var(--element-bg);
 
   &.is-past {
     opacity: 0.6;
-    filter: grayscale(0.8);
-    background-color: #f9f9f9;
+    filter: grayscale(0.8), drop-shadow(var(--shadow-big));
 
-    ::before {
+    &::before {
       content: "Abgelaufen";
       position: absolute;
       top: 10px;
@@ -19,6 +20,15 @@
       padding: 4px 8px;
       border-radius: 4px;
       font-size: 0.8rem;
+    }
+  }
+
+  &:hover,
+  &:focus-visible {
+    filter: drop-shadow(var(--shadow-big));
+
+    .fake-link::after {
+      width: 100%;
     }
   }
 }
@@ -43,11 +53,9 @@
 .image {
   width: 100%;
   min-width: 100%;
-  /* height: 12.5rem; */
   height: 10rem;
   min-height: 10rem;
   object-fit: cover;
-  background-color: pink;
 }
 
 .title {
@@ -59,4 +67,18 @@
   margin-top: auto;
   color: var(--secondary, blue);
   font-weight: 700;
+  transition: all 350ms ease;
+  position: relative;
+  width: fit-content;
+
+  &::after {
+    transition: all 350ms ease;
+    content: "";
+    display: block;
+    position: relative;
+    left: 0;
+    width: 0;
+    height: 0.175rem;
+    background-color: var(--secondary);
+  }
 }
