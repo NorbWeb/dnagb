@@ -9,12 +9,27 @@ async function handleNavigation(pathname: string) {
   const main = document.querySelector("main");
   if (!main) return;
 
+  // Redirect root path to /home
   if (pathname === "" || pathname === "/") {
     history.replaceState(null, "", "/home");
     return handleNavigation("/home");
   }
 
-  // Hole die Seite direkt aus deinem aufbereiteten Store
+  // Handle event and news details pages
+  if (pathname.startsWith("/event/") || pathname.startsWith("/news/")) {
+    const parts = pathname.split("/"); // ["", "event", "123"]
+    const type = parts[1]; // "event" oder "news"
+    const id = parts[2]; // "123"
+
+    const detailsView = document.createElement("app-details-page");
+    detailsView.setAttribute("type", type);
+    detailsView.setAttribute("id", id);
+
+    main.replaceChildren(detailsView);
+    return;
+  }
+
+  // Handle static pages and dynamic pages
   const page = pageStore.findByPath(pathname);
 
   if (!page) {

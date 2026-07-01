@@ -20,7 +20,7 @@ export function renderNewsCard(element: any): HTMLElement {
   // Basistexte
   card.setAttribute("title", element.title);
   card.setAttribute("teaser", element.announcement);
-  card.setAttribute("link-url", `/events/${element.id}`);
+  card.setAttribute("link-url", `/${element.fe_type}/${element.id}`);
 
   // Datum und Link-Text
   card.setAttribute(

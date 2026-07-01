@@ -4,6 +4,11 @@
   :last-child {
     margin-bottom: 0;
   }
+
+  img {
+    border-radius: var(--border-radius);
+    filter: drop-shadow(var(--shadow));
+  }
 }
 
 .table-wrapper {

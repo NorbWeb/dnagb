@@ -9,7 +9,7 @@ export class NewsStore {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_CMS_URL}/items/news`,
+        `${import.meta.env.VITE_CMS_URL}/items/news?filter={"status":{"_eq":"published"}}`,
       );
 
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -26,6 +26,10 @@ export class NewsStore {
 
   get news() {
     return this._news.value;
+  }
+
+  byId(id: string | null) {
+    return this._news.value.find((f) => f.id.toString() === id);
   }
 }
 

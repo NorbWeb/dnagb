@@ -1,5 +1,6 @@
 import "./styles/main.css";
 import "./cms-page/cms-page-view";
+import "./details-page/details-page";
 import "./components/button/button";
 import "./components/nav/app-nav";
 

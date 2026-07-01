@@ -5,7 +5,7 @@ interface BlockEditorList {
   items: BlockEditorList[];
 }
 
-export const renderBlock = (block: any, page: Page): HTMLElement => {
+export const renderBlock = (block: any, page: Page | null): HTMLElement => {
   switch (block.type) {
     case "header":
       let header = document.createElement(`h${block.data.level}`);
@@ -46,9 +46,8 @@ export const renderBlock = (block: any, page: Page): HTMLElement => {
       return ul;
 
     case "table":
-      console.log(page);
       let wrapper = document.createElement("div");
-      wrapper.classList.add("table-wrapper", page.table_break_view);
+      wrapper.classList.add("table-wrapper", page?.table_break_view || "none");
       let table = document.createElement("table");
       let thead = document.createElement("thead");
       let tbody = document.createElement("tbody");

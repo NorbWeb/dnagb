@@ -10,7 +10,7 @@ export class EventStore {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_CMS_URL}/items/events`,
+        `${import.meta.env.VITE_CMS_URL}/items/events?filter={"status":{"_eq":"published"}}`,
       );
 
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -38,6 +38,10 @@ export class EventStore {
     return this._events.value.filter((f) => {
       return new Date(f.date_start) >= date;
     });
+  }
+
+  byId(id: string | null) {
+    return this._events.value.find((f) => f.id.toString() === id);
   }
 }
 
