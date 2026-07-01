@@ -2,7 +2,7 @@
   --min-col-size: 300px;
 
   display: grid;
-  gap: 1rem;
+  gap: var(--gap);
   align-items: stretch;
 
   grid-template-columns: repeat(

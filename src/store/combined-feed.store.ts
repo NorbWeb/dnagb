@@ -43,6 +43,18 @@ export class CombinedFeedStore {
     );
   }
 
+  get lastNews() {
+    return this._allContent.value
+      .filter((item) => item.fe_type === "news")
+      .slice(0, 2);
+  }
+
+  get futureEvents() {
+    return this._allContent.value.filter(
+      (item) => item.fe_type === "event" && "isPast" in item && !item.isPast,
+    );
+  }
+
   setFilter(value: string) {
     this._filter.value = value;
   }

@@ -1,6 +1,10 @@
 import { Component } from "../../utils/base-component";
 import html from "./home.html?raw";
 import styles from "./home.css?inline";
+import { feedStore } from "../../store/combined-feed.store";
+import { renderNewsCard } from "../../renderer/card.render";
+import "../../components/news-card/news-card";
+import { formatDateRange } from "../../utils/helper";
 
 class Home extends Component {
   static html = html;
@@ -8,14 +12,43 @@ class Home extends Component {
 
   constructor() {
     super();
+    this.watch(feedStore._allContent);
   }
 
   connectedCallback() {
     // Füge dem Host-Element eine Klasse hinzu
+    super.connectedCallback();
     this.classList.add("full-width");
   }
 
-  render() {}
+  render() {
+    const container = this.shadowRoot?.getElementById("info");
+    if (!container) return;
+    container.innerHTML = "";
+
+    // event list
+    let eventList = document.createElement("ul");
+    eventList.classList.add("event-list");
+    if (feedStore.futureEvents.length < 1) {
+      const li = document.createElement("li");
+      li.textContent = "Es stehen gerade keine Events an.";
+      eventList.appendChild(li);
+    } else {
+      for (const event of feedStore.futureEvents) {
+        const li = document.createElement("li");
+        li.textContent =
+          formatDateRange(event.date_start, null, false) + " | " + event.title;
+
+        eventList.appendChild(li);
+      }
+    }
+    container.appendChild(eventList);
+
+    for (const element of feedStore.lastNews) {
+      const card = renderNewsCard(element);
+      container.appendChild(card);
+    }
+  }
 }
 
 if (!customElements.get("app-home")) {
