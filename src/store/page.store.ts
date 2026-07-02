@@ -3,7 +3,7 @@ import type { Page } from "../types/page";
 import type { StaticPage } from "../types/staticPage";
 
 export class PageStore {
-  _pages = new Signal<Page[]>([]);
+  _pages = new Signal<(StaticPage | Page)[]>([]);
   _pageTree = new Signal<Page[]>([]);
 
   async fetchPages() {
@@ -69,18 +69,30 @@ export class PageStore {
       return sortA - sortB;
     });
 
-    const tree = this.createPageTree(allMenuPages);
-    this._pageTree.value = tree;
-    this._pages.value = this.flattenTree(tree);
+    this._pages.value = allMenuPages;
+
+    // const tree = this.createPageTree(allMenuPages);
+    // this._pageTree.value = tree;
+    // this._pages.value = this.flattenTree(tree);
   }
 
   get pages() {
     return this._pages;
   }
 
-  get pageTree() {
-    return this._pageTree;
+  // Hilfsmethode für den Drill-Down
+  getChildren(parentId: string | null) {
+    return this._pages.value.filter((p) => p.parent === parentId);
   }
+
+  // Hilfsmethode für Breadcrumbs / Back-Button
+  getParent(parentId: string) {
+    return this._pages.value.find((p) => p.id === parentId);
+  }
+
+  // get pageTree() {
+  //   return this._pageTree;
+  // }
 
   findByPath(pathName: string) {
     let result = this._pages.value.find(
@@ -89,38 +101,38 @@ export class PageStore {
     return result;
   }
 
-  createPageTree(pages: (Page | StaticPage)[]) {
-    const map: Record<string, any> = {};
-    const tree: Page[] = [];
+  // createPageTree(pages: (Page | StaticPage)[]) {
+  //   const map: Record<string, any> = {};
+  //   const tree: Page[] = [];
 
-    for (const item of pages) {
-      map[item.id] = { ...item, children: map[item.id]?.children || [] };
-      const currentItem = map[item.id];
+  //   for (const item of pages) {
+  //     map[item.id] = { ...item, children: map[item.id]?.children || [] };
+  //     const currentItem = map[item.id];
 
-      if (item.parent === null) {
-        tree.push(currentItem);
-      } else {
-        if (!map[item.parent]) {
-          map[item.parent] = { children: [] };
-        }
+  //     if (item.parent === null) {
+  //       tree.push(currentItem);
+  //     } else {
+  //       if (!map[item.parent]) {
+  //         map[item.parent] = { children: [] };
+  //       }
 
-        map[item.parent].children.push(currentItem);
-      }
-    }
+  //       map[item.parent].children.push(currentItem);
+  //     }
+  //   }
 
-    this.updatePaths(tree);
-    return tree;
-  }
+  //   this.updatePaths(tree);
+  //   return tree;
+  // }
 
-  private flattenTree(nodes: Page[], result: Page[] = []): Page[] {
-    for (const node of nodes) {
-      result.push(node);
-      if (node.children && node.children.length > 0) {
-        this.flattenTree(node.children, result);
-      }
-    }
-    return result;
-  }
+  // private flattenTree(nodes: Page[], result: Page[] = []): Page[] {
+  //   for (const node of nodes) {
+  //     result.push(node);
+  //     if (node.children && node.children.length > 0) {
+  //       this.flattenTree(node.children, result);
+  //     }
+  //   }
+  //   return result;
+  // }
 
   updatePaths(nodes: Page[], parentPath = ""): Page[] {
     for (const node of nodes) {

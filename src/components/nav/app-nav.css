@@ -42,7 +42,7 @@
   translate: -50%;
   border-top: 4px solid var(--primary);
   border-radius: 0 0 var(--border-radius) var(--border-radius);
-  overflow: hidden;
+  /* overflow: hidden; */
   margin-bottom: 1rem;
 
   .nav-item {

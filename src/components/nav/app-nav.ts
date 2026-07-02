@@ -10,16 +10,33 @@ class AppNav extends Component {
   static styles = styles;
   constructor() {
     super();
-    this.watch(pageStore.pageTree);
+    this.watch(pageStore.pages);
   }
 
   render() {
-    const pages = pageStore.pageTree.value || [];
-
     const container = this.shadowRoot?.getElementById("nav-container");
     if (!container) return;
     container.innerHTML = "";
-    container.appendChild(renderNavMenu(pages));
+
+    // 1. Daten holen
+    const items = pageStore.getChildren(this.currentParentId);
+
+    // 2. Renderer aufrufen
+    const menu = renderNavMenu({
+      items: items,
+      canGoBack: this.history.length > 0,
+      onNavigate: (id) => {
+        this.history.push(this.currentParentId);
+        this.currentParentId = id;
+        this.render(); // Erzwingt komplettes Re-Render
+      },
+      onBack: () => {
+        this.currentParentId = this.history.pop() || null;
+        this.render(); // Erzwingt komplettes Re-Render
+      },
+    });
+
+    container.appendChild(menu);
   }
 }
 
