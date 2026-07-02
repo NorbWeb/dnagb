@@ -5,17 +5,14 @@
   background-color: var(--element-bg-dark);
 }
 
-.main-nav {
-  max-width: var(--container-width);
-  margin: auto;
-  user-select: none;
-
-  > .nav-list {
-    display: flex;
-    justify-content: space-evenly;
-    flex-direction: row;
-    min-height: 6rem;
-  }
+#side-nav {
+  position: fixed;
+  z-index: 1100;
+  top: 4rem;
+  left: 0;
+  padding: 0;
+  border: 0;
+  margin: 0;
 }
 
 .nav-list {
@@ -25,58 +22,19 @@
   display: flex;
   position: relative;
   background-color: var(--element-bg-dark);
-  z-index: 1000;
   display: flex;
   flex-direction: column;
-}
-
-/* Verstecke das Untermenü standardmäßig */
-.child-menu {
-  display: none;
-  position: absolute;
-  top: 100%;
-  width: 100%;
-  min-width: 12.5rem;
-  box-shadow: var(--shadow);
-  left: 50%;
-  translate: -50%;
-  border-top: 4px solid var(--primary);
-  border-radius: 0 0 var(--border-radius) var(--border-radius);
-  /* overflow: hidden; */
-  margin-bottom: 1rem;
-
-  .nav-item {
-    a {
-      justify-content: start;
-      padding: 0.5rem 1rem;
-    }
-
-    &:first-of-type a {
-      padding-top: 1rem;
-    }
-    &:last-of-type a {
-      padding-bottom: 1rem;
-    }
-  }
 }
 
 .nav-item {
   display: flex;
   background-color: var(--element-bg-dark);
-  position: relative;
   color: var(--text-color-inverse);
-
-  &[open] {
-    > .child-menu {
-      display: block;
-    }
-  }
 
   a {
     padding: 1rem 1.5rem;
     flex: 1 1 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
     color: unset;
     text-decoration: none;
@@ -86,10 +44,6 @@
     &:focus-visible {
       color: var(--primary);
     }
-  }
-
-  &:has(.menu-trigger) a {
-    padding-right: 0;
   }
 
   .menu-trigger {

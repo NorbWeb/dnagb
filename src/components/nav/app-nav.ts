@@ -1,4 +1,3 @@
-// components/nav/app-nav.ts
 import { pageStore } from "../../store/page.store";
 import { renderNavMenu } from "../../renderer/navMenu.renderer";
 import styles from "./app-nav.css?inline";
@@ -8,31 +7,43 @@ import navHtml from "./app-nav.html?raw";
 class AppNav extends Component {
   static html = navHtml;
   static styles = styles;
+
+  private currentParentId: string | null = null;
+  private history: (string | null)[] = [];
+
   constructor() {
     super();
     this.watch(pageStore.pages);
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    this.render();
+  }
+
   render() {
-    const container = this.shadowRoot?.getElementById("nav-container");
+    const container = this.shadowRoot?.getElementById("side-nav");
     if (!container) return;
+
     container.innerHTML = "";
 
-    // 1. Daten holen
     const items = pageStore.getChildren(this.currentParentId);
 
-    // 2. Renderer aufrufen
     const menu = renderNavMenu({
       items: items,
       canGoBack: this.history.length > 0,
+
+      hasChildren: (id) => pageStore.hasChildren(id),
+
       onNavigate: (id) => {
         this.history.push(this.currentParentId);
         this.currentParentId = id;
-        this.render(); // Erzwingt komplettes Re-Render
+        this.render();
       },
       onBack: () => {
-        this.currentParentId = this.history.pop() || null;
-        this.render(); // Erzwingt komplettes Re-Render
+        const previousId = this.history.pop();
+        this.currentParentId = previousId !== undefined ? previousId : null;
+        this.render();
       },
     });
 

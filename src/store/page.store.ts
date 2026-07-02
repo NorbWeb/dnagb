@@ -4,7 +4,6 @@ import type { StaticPage } from "../types/staticPage";
 
 export class PageStore {
   _pages = new Signal<(StaticPage | Page)[]>([]);
-  _pageTree = new Signal<Page[]>([]);
 
   async fetchPages() {
     const staticRoutes: StaticPage[] = [
@@ -57,6 +56,7 @@ export class PageStore {
     } catch (error) {
       console.error("Fetch-Vorgang fehlgeschlagen:", error);
     }
+
     const allMenuPages: (Page | StaticPage)[] = [
       ...staticRoutes.filter((route) => route.status === "published"),
       ...cmsData.filter((page: Page) => page.link_location === "menu"),
@@ -69,82 +69,59 @@ export class PageStore {
       return sortA - sortB;
     });
 
-    this._pages.value = allMenuPages;
-
-    // const tree = this.createPageTree(allMenuPages);
-    // this._pageTree.value = tree;
-    // this._pages.value = this.flattenTree(tree);
+    // Pfade für die flache Liste generieren und in den Store schreiben
+    this._pages.value = this.buildPaths(allMenuPages);
   }
 
   get pages() {
     return this._pages;
   }
 
-  // Hilfsmethode für den Drill-Down
   getChildren(parentId: string | null) {
     return this._pages.value.filter((p) => p.parent === parentId);
   }
 
-  // Hilfsmethode für Breadcrumbs / Back-Button
   getParent(parentId: string) {
     return this._pages.value.find((p) => p.id === parentId);
   }
 
-  // get pageTree() {
-  //   return this._pageTree;
-  // }
-
-  findByPath(pathName: string) {
-    let result = this._pages.value.find(
-      (f: Page | StaticPage) => f.fullPath === pathName,
-    );
-    return result;
+  // NEU: Performante Prüfung, ob eine Seite Unterseiten hat
+  hasChildren(parentId: string) {
+    return this._pages.value.some((p) => p.parent === parentId);
   }
 
-  // createPageTree(pages: (Page | StaticPage)[]) {
-  //   const map: Record<string, any> = {};
-  //   const tree: Page[] = [];
+  findByPath(pathName: string) {
+    return this._pages.value.find(
+      (f: Page | StaticPage) => f.fullPath === pathName,
+    );
+  }
 
-  //   for (const item of pages) {
-  //     map[item.id] = { ...item, children: map[item.id]?.children || [] };
-  //     const currentItem = map[item.id];
+  // NEU: Berechnet die vollen Pfade sicher anhand der flachen Parent-IDs
+  private buildPaths(pages: (Page | StaticPage)[]): (Page | StaticPage)[] {
+    const pageMap = new Map(pages.map((p) => [p.id, p]));
 
-  //     if (item.parent === null) {
-  //       tree.push(currentItem);
-  //     } else {
-  //       if (!map[item.parent]) {
-  //         map[item.parent] = { children: [] };
-  //       }
+    const getPath = (page: Page | StaticPage): string => {
+      if (page.static_page && page.fullPath) return page.fullPath;
 
-  //       map[item.parent].children.push(currentItem);
-  //     }
-  //   }
-
-  //   this.updatePaths(tree);
-  //   return tree;
-  // }
-
-  // private flattenTree(nodes: Page[], result: Page[] = []): Page[] {
-  //   for (const node of nodes) {
-  //     result.push(node);
-  //     if (node.children && node.children.length > 0) {
-  //       this.flattenTree(node.children, result);
-  //     }
-  //   }
-  //   return result;
-  // }
-
-  updatePaths(nodes: Page[], parentPath = ""): Page[] {
-    for (const node of nodes) {
-      if (node.static_page) {
-        continue;
+      const dynamicPage = page as Page;
+      if (!page.parent || !pageMap.has(page.parent)) {
+        return `/${dynamicPage.slug || ""}`.replace(/\/+/g, "/");
       }
-      node.fullPath = `${parentPath}/${node.slug}`.replace(/\/+/g, "/");
-      if (node.children.length > 0) {
-        this.updatePaths(node.children, node.fullPath);
+
+      const parentPage = pageMap.get(page.parent)!;
+      return `${getPath(parentPage)}/${dynamicPage.slug || ""}`.replace(
+        /\/+/g,
+        "/",
+      );
+    };
+
+    for (const page of pages) {
+      if (!page.static_page) {
+        page.fullPath = getPath(page);
       }
     }
-    return nodes;
+
+    return pages;
   }
 }
 
