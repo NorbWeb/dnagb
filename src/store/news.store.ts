@@ -27,10 +27,6 @@ export class NewsStore {
   get news() {
     return this._news.value;
   }
-
-  byId(id: string | null) {
-    return this._news.value.find((f) => f.id.toString() === id);
-  }
 }
 
 export const newsStore = new NewsStore();

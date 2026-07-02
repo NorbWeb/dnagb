@@ -58,6 +58,12 @@ export class CombinedFeedStore {
   setFilter(value: string) {
     this._filter.value = value;
   }
+
+  filterById(id: string | null, type: string | null) {
+    return this._allContent.value.find(
+      (f) => f.id.toString() === id && f.fe_type === type,
+    );
+  }
 }
 
 export const feedStore = new CombinedFeedStore();

@@ -39,10 +39,6 @@ export class EventStore {
       return new Date(f.date_start) >= date;
     });
   }
-
-  byId(id: string | null) {
-    return this._events.value.find((f) => f.id.toString() === id);
-  }
 }
 
 export const eventStore = new EventStore();

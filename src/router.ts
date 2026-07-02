@@ -17,9 +17,9 @@ async function handleNavigation(pathname: string) {
 
   // Handle event and news details pages
   if (pathname.startsWith("/event/") || pathname.startsWith("/news/")) {
-    const parts = pathname.split("/"); // ["", "event", "123"]
-    const type = parts[1]; // "event" oder "news"
-    const id = parts[2]; // "123"
+    const parts = pathname.split("/");
+    const type = parts[1];
+    const id = parts[2];
 
     const detailsView = document.createElement("app-details-page");
     detailsView.setAttribute("type", type);
