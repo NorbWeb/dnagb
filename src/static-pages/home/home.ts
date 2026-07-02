@@ -45,7 +45,9 @@ class Home extends Component {
         const li = document.createElement("li");
         li.textContent =
           formatDateRange(event.date_start, null, false) + " | " + event.title;
-
+        li.addEventListener("click", () => {
+          navigation.navigate(`/event/${event.id}`);
+        });
         eventList.appendChild(li);
       }
     }
