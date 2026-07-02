@@ -1,6 +1,8 @@
 #nav-container {
   box-shadow: var(--shadow);
   background-color: var(--element-bg);
+  z-index: 1000;
+  background-color: var(--element-bg-dark);
 }
 
 .main-nav {
@@ -8,9 +10,11 @@
   margin: auto;
   user-select: none;
 
-  .nav-list {
+  > .nav-list {
     display: flex;
     justify-content: space-evenly;
+    flex-direction: row;
+    min-height: 6rem;
   }
 }
 
@@ -19,9 +23,11 @@
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 1rem;
   position: relative;
-  background-color: var(--element-bg);
+  background-color: var(--element-bg-dark);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Verstecke das Untermenü standardmäßig */
@@ -29,17 +35,36 @@
   display: none;
   position: absolute;
   top: 100%;
-  left: 0;
   width: 100%;
+  min-width: 12.5rem;
   box-shadow: var(--shadow);
+  left: 50%;
+  translate: -50%;
+  border-top: 4px solid var(--primary);
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  overflow: hidden;
+  margin-bottom: 1rem;
+
+  .nav-item {
+    a {
+      justify-content: start;
+      padding: 0.5rem 1rem;
+    }
+
+    &:first-of-type a {
+      padding-top: 1rem;
+    }
+    &:last-of-type a {
+      padding-bottom: 1rem;
+    }
+  }
 }
 
 .nav-item {
   display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  background-color: var(--element-bg);
-  padding: 1rem 1.5rem;
+  background-color: var(--element-bg-dark);
+  position: relative;
+  color: var(--text-color-inverse);
 
   &[open] {
     > .child-menu {
@@ -48,7 +73,23 @@
   }
 
   a {
+    padding: 1rem 1.5rem;
     flex: 1 1 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: unset;
+    text-decoration: none;
+    transition: var(--transition);
+
+    &:hover,
+    &:focus-visible {
+      color: var(--primary);
+    }
+  }
+
+  &:has(.menu-trigger) a {
+    padding-right: 0;
   }
 
   .menu-trigger {
@@ -59,6 +100,12 @@
     padding: 0.5rem;
     width: 2rem;
     cursor: pointer;
-    border: 1px solid black;
+
+    transition: var(--transition);
+
+    &:hover,
+    &:focus-visible {
+      color: var(--primary);
+    }
   }
 }

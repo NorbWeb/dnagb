@@ -73,17 +73,31 @@ export function renderNavMenu(pages: Page[]) {
   nav.classList.add("main-nav");
   nav.appendChild(menu || document.createTextNode(""));
 
-  // Event Delegation am Nav-Container
+  // Zentrale Logik zum Zurücksetzen
+  const closeAllMenus = () => {
+    const allItems = nav.querySelectorAll(".nav-item[open]");
+    allItems.forEach((item) => {
+      item.removeAttribute("open");
+      const trigger = item.querySelector(".menu-trigger > svg");
+      if (trigger) trigger.replaceWith(icon("arrow-drop-down"));
+    });
+  };
+
+  // 1. Klicks innerhalb der Nav (Delegation)
   nav.addEventListener("click", (e) => {
     const target = e.target as HTMLElement;
-    // Wenn ein Link geklickt wurde:
+
+    // Wenn ein Link geklickt wird, alle Menüs schließen
     if (target.tagName === "A") {
-      const allItems = nav.querySelectorAll(".nav-item");
-      allItems.forEach((item) => {
-        item.removeAttribute("open");
-        const trigger = item.querySelector(".menu-trigger > svg");
-        if (trigger) trigger.replaceWith(icon("arrow-drop-down"));
-      });
+      closeAllMenus();
+    }
+  });
+
+  // 2. Globaler Klick auf das Dokument
+  document.addEventListener("click", (e) => {
+    // Wenn der Klick NICHT innerhalb der Navigation stattfand, alles schließen
+    if (!nav.contains(e.target as Node)) {
+      closeAllMenus();
     }
   });
 

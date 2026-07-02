@@ -6,11 +6,15 @@
     Open Sans,
     Helvetica Neue,
     sans-serif;
+  color: var(--text-color);
 
   /* color */
   --primary: #f2a606;
   --secondary: #15605f;
   --element-bg: #fff;
+  --element-bg-dark: #22262a;
+  --text-color: #22262a;
+  --text-color-inverse: #f1f2f4;
 
   /* layout */
   --content-width: 960px;

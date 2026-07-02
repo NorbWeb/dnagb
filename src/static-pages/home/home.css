@@ -1,5 +1,4 @@
 #hero {
-  background-color: pink;
   height: 20rem;
   position: relative;
 
@@ -37,7 +36,7 @@
       font-family: arial;
       font-size: 4rem;
       line-height: 5rem;
-      color: var(--element-bg);
+      color: var(--text-color-inverse);
     }
 
     .button-group {
