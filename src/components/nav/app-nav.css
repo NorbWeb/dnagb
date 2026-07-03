@@ -1,12 +1,27 @@
 #nav-container {
   box-shadow: var(--shadow);
-  background-color: var(--element-bg);
   z-index: 1000;
   background-color: var(--element-bg-dark);
+  height: 4rem;
+
+  .wrapper {
+    max-width: var(--container-width);
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+}
+
+.logo {
+  width: 150px;
+  min-height: 70px;
+  background-color: gray;
 }
 
 #side-nav {
-  position: fixed;
+  position: absolute;
   z-index: 1100;
   top: 4rem;
   left: 0;
@@ -31,12 +46,16 @@
   background-color: var(--element-bg-dark);
   color: var(--text-color-inverse);
 
-  a {
+  a,
+  &.nav-item-back {
     padding: 1rem 1.5rem;
     flex: 1 1 100%;
     display: flex;
     align-items: center;
-    color: unset;
+    gap: 1rem;
+    color: var(--text-color-inverse);
+    cursor: pointer;
+
     text-decoration: none;
     transition: var(--transition);
 
@@ -51,7 +70,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.5rem;
+    padding: 1rem 1.5rem;
+
     width: 2rem;
     cursor: pointer;
 

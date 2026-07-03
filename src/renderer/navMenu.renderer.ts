@@ -12,25 +12,20 @@ interface NavOptions {
 
 export function renderNavMenu(options: NavOptions): HTMLElement {
   const { items, canGoBack, hasChildren, onNavigate, onBack } = options;
-  const nav = document.createElement("nav");
-  nav.classList.add("side-nav");
-
-  if (canGoBack) {
-    const header = document.createElement("div");
-    header.classList.add("nav-header");
-
-    const backBtn = document.createElement("button");
-    backBtn.classList.add("nav-back-btn");
-    backBtn.appendChild(icon("arrow-back"));
-    backBtn.appendChild(document.createTextNode(" Zurück"));
-    backBtn.onclick = onBack;
-
-    header.appendChild(backBtn);
-    nav.appendChild(header);
-  }
-
   const ul = document.createElement("ul");
   ul.classList.add("nav-list");
+
+  if (canGoBack) {
+    const liBack = document.createElement("li");
+    liBack.classList.add("nav-item", "nav-item-back");
+
+    liBack.appendChild(icon("arrow-left"));
+    liBack.appendChild(document.createTextNode(" Zurück"));
+
+    liBack.onclick = onBack;
+
+    ul.appendChild(liBack);
+  }
 
   items.forEach((page) => {
     const li = document.createElement("li");
@@ -39,6 +34,15 @@ export function renderNavMenu(options: NavOptions): HTMLElement {
     const a = document.createElement("a");
     a.href = page.fullPath || "#";
     a.textContent = page.title;
+
+    a.onclick = () => {
+      // Wenn du das moderne HTML-Popover API nutzt:
+      const popover = a.closest("[popover]");
+      if (popover) {
+        (popover as any).hidePopover();
+      }
+    };
+
     li.appendChild(a);
 
     // Fragt direkt die übergebene Funktion, ob es Kinder gibt
@@ -59,6 +63,5 @@ export function renderNavMenu(options: NavOptions): HTMLElement {
     ul.appendChild(li);
   });
 
-  nav.appendChild(ul);
-  return nav;
+  return ul;
 }
