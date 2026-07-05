@@ -10,24 +10,30 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
+    height: 100%;
   }
 }
 
 .logo {
-  width: 150px;
-  min-height: 70px;
+  height: 3rem;
+  aspect-ratio: 3/1;
   background-color: gray;
 }
 
 #side-nav {
-  position: absolute;
   z-index: 1100;
-  top: 4rem;
-  left: 0;
   padding: 0;
-  border: 0;
   margin: 0;
+  border: 0;
+  top: 4rem;
+  min-width: 20rem;
+  border-top: 3px solid var(--primary);
+  position-area: span-self-x-start;
+
+  @media (max-width: 768px) {
+    min-width: 100vw;
+    position-area: right;
+  }
 }
 
 .nav-list {
@@ -45,6 +51,7 @@
   display: flex;
   background-color: var(--element-bg-dark);
   color: var(--text-color-inverse);
+  border-bottom: 1px solid oklch(from var(--primary) l c h / 0.1);
 
   a,
   &.nav-item-back {
@@ -63,6 +70,10 @@
     &:focus-visible {
       color: var(--primary);
     }
+  }
+
+  &.nav-item-back {
+    background-color: oklch(from var(--primary) l c h / 0.1);
   }
 
   .menu-trigger {
