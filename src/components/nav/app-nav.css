@@ -1,16 +1,24 @@
+@import "../button/button.css";
+
 #nav-container {
+  position: fixed;
+  width: 100%;
   box-shadow: var(--shadow);
   z-index: 1000;
   background-color: var(--element-bg-dark);
-  height: 4rem;
+  height: var(--header-height);
+  display: grid;
+  grid-template-columns: var(--container-grid);
 
   .wrapper {
-    max-width: var(--container-width);
+    grid-column: 2;
+    width: 100%;
     margin: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 100%;
+    anchor-name: --nav-anchor;
   }
 }
 
@@ -25,14 +33,13 @@
   padding: 0;
   margin: 0;
   border: 0;
-  top: 4rem;
   min-width: 20rem;
   border-top: 3px solid var(--primary);
-  position-area: span-self-x-start;
+  position-anchor: --nav-anchor;
+  position-area: span-left bottom;
 
   @media (max-width: 768px) {
     min-width: 100vw;
-    position-area: right;
   }
 }
 
@@ -68,12 +75,16 @@
 
     &:hover,
     &:focus-visible {
-      color: var(--primary);
+      background-color: var(--primary-hover);
     }
   }
 
   &.nav-item-back {
-    background-color: oklch(from var(--primary) l c h / 0.1);
+    align-items: unset;
+    background-color: var(--primary-hover);
+    .icon {
+      transform: rotate(180deg);
+    }
   }
 
   .menu-trigger {
@@ -90,7 +101,8 @@
 
     &:hover,
     &:focus-visible {
-      color: var(--primary);
+      background-color: var(--primary-hover);
+      color: var(--text-color-inverse);
     }
   }
 }

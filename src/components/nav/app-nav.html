@@ -1,7 +1,14 @@
 <header id="nav-container">
   <div class="wrapper">
     <a class="logo" href="/"></a>
-    <button id="side-nav-toggle" popovertarget="side-nav">☰</button>
-    <dialog id="side-nav" popover></dialog>
+    <button
+      id="side-nav-toggle"
+      commandfor="side-nav"
+      command="show-modal"
+      class="btn"
+    >
+      ☰
+    </button>
+    <dialog id="side-nav"></dialog>
   </div>
 </header>

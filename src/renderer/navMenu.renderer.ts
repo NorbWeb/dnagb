@@ -5,13 +5,15 @@ import { icon } from "../utils/icon";
 interface NavOptions {
   items: (Page | StaticPage)[];
   canGoBack: boolean;
+  parentTitle: string;
   hasChildren: (pageId: string) => boolean;
   onNavigate: (pageId: string) => void;
   onBack: () => void;
 }
 
 export function renderNavMenu(options: NavOptions): HTMLElement {
-  const { items, canGoBack, hasChildren, onNavigate, onBack } = options;
+  const { items, canGoBack, parentTitle, hasChildren, onNavigate, onBack } =
+    options;
   const ul = document.createElement("ul");
   ul.classList.add("nav-list");
 
@@ -19,8 +21,8 @@ export function renderNavMenu(options: NavOptions): HTMLElement {
     const liBack = document.createElement("li");
     liBack.classList.add("nav-item", "nav-item-back");
 
-    liBack.appendChild(icon("arrow-left"));
-    liBack.appendChild(document.createTextNode(" Zurück"));
+    liBack.appendChild(icon("chevron-right"));
+    liBack.appendChild(document.createTextNode(parentTitle));
 
     liBack.onclick = onBack;
 
@@ -36,10 +38,9 @@ export function renderNavMenu(options: NavOptions): HTMLElement {
     a.textContent = page.title;
 
     a.onclick = () => {
-      // Wenn du das moderne HTML-Popover API nutzt:
-      const popover = a.closest("[popover]");
-      if (popover) {
-        (popover as any).hidePopover();
+      const dialog = a.closest("dialog") as HTMLDialogElement | null;
+      if (dialog) {
+        dialog.close();
       }
     };
 

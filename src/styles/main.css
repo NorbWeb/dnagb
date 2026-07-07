@@ -2,6 +2,7 @@
 @import "./_variables.css";
 
 main {
+  padding-top: var(--header-height);
   display: grid;
   grid-template-columns: var(--content-grid);
 

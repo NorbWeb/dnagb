@@ -18,21 +18,52 @@ class AppNav extends Component {
 
   connectedCallback() {
     super.connectedCallback();
+    const dialog = this.shadowRoot?.getElementById(
+      "side-nav",
+    ) as HTMLDialogElement;
+
+    if (dialog) {
+      dialog.addEventListener("close", () => {
+        this.currentParentId = null;
+        this.history = [];
+
+        this.render();
+      });
+    }
+
+    dialog.addEventListener("click", (e) => {
+      const rect = dialog.getBoundingClientRect();
+      const isInDialog =
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom;
+
+      // Wenn außerhalb des Dialog-Bereichs geklickt wurde -> schließen
+      if (!isInDialog) {
+        dialog.close();
+      }
+    });
     this.render();
   }
 
   render() {
-    const container = this.shadowRoot?.getElementById("side-nav");
-    if (!container) return;
+    const dialog = this.shadowRoot?.getElementById(
+      "side-nav",
+    ) as HTMLDialogElement | null;
+    if (!dialog) return;
 
-    container.innerHTML = "";
+    dialog.innerHTML = "";
 
     const items = pageStore.getChildren(this.currentParentId);
+    const parentPage = this.currentParentId
+      ? pageStore.getParent(this.currentParentId)
+      : null;
 
     const menu = renderNavMenu({
       items: items,
       canGoBack: this.history.length > 0,
-
+      parentTitle: parentPage?.title || "Zurück",
       hasChildren: (id) => pageStore.hasChildren(id),
 
       onNavigate: (id) => {
@@ -47,7 +78,7 @@ class AppNav extends Component {
       },
     });
 
-    container.appendChild(menu);
+    dialog.appendChild(menu);
   }
 }
 
