@@ -100,12 +100,18 @@
     &::before {
       content: "🌸";
       margin-top: -2px;
+      transition: var(--transition);
+    }
+
+    .text {
+      transition: var(--transition);
     }
 
     &:hover,
     &:focus-visible {
-      background-color: rgba(0, 0, 0, 0.1);
-      padding-left: 0.5rem;
+      &::before {
+        scale: 1.5;
+      }
     }
   }
 }

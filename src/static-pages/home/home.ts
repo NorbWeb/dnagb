@@ -43,8 +43,11 @@ class Home extends Component {
     } else {
       for (const event of feedStore.futureEvents) {
         const li = document.createElement("li");
-        li.textContent =
+        const text = document.createElement("span");
+        text.classList.add("text");
+        text.textContent =
           formatDateRange(event.date_start, null, false) + " | " + event.title;
+        li.appendChild(text);
         li.addEventListener("click", () => {
           navigation.navigate(`/event/${event.id}`);
         });
