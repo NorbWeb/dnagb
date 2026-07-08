@@ -5,6 +5,7 @@ import { feedStore } from "../../store/combined-feed.store";
 import { renderNewsCard } from "../../renderer/card.render";
 import "../../components/news-card/news-card";
 import { formatDateRange } from "../../utils/helper";
+import { pageStore } from "../../store/page.store";
 
 class Home extends Component {
   static html = html;
@@ -13,12 +14,30 @@ class Home extends Component {
   constructor() {
     super();
     this.watch(feedStore._allContent);
+    this.watch(pageStore._pages);
+  }
+
+  navigate(url: string) {
+    navigation.navigate(url);
   }
 
   connectedCallback() {
-    // Füge dem Host-Element eine Klasse hinzu
     super.connectedCallback();
     this.classList.add("full-width");
+    const btnGroup = this.shadowRoot?.querySelector(".button-group");
+    if (btnGroup) {
+      const navBtn = pageStore.getHomeNavButtons();
+
+      for (const element of navBtn) {
+        const button = document.createElement("app-button");
+        button.textContent = element.title;
+        button.addEventListener("click", () => {
+          navigation.navigate(element.fullPath);
+        });
+
+        btnGroup.appendChild(button);
+      }
+    }
   }
 
   render() {

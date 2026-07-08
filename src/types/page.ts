@@ -18,6 +18,7 @@ export interface Page {
   static_page?: false;
   component?: null;
   table_break_view: string;
+  show_on_home: boolean;
 }
 
 export interface BlockEditor {

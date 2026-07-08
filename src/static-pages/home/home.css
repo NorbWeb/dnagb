@@ -41,7 +41,7 @@
 
     .button-group {
       display: flex;
-      gap: calc(var(--gap) / 2);
+      gap: 1.25rem;
     }
   }
 }

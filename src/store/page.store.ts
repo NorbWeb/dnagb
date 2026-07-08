@@ -96,6 +96,12 @@ export class PageStore {
     );
   }
 
+  getHomeNavButtons() {
+    return this._pages.value.filter((p) =>
+      "show_on_home" in p && p.show_on_home ? p.show_on_home === true : null,
+    );
+  }
+
   // NEU: Berechnet die vollen Pfade sicher anhand der flachen Parent-IDs
   private buildPaths(pages: (Page | StaticPage)[]): (Page | StaticPage)[] {
     const pageMap = new Map(pages.map((p) => [p.id, p]));
