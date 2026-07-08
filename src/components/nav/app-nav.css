@@ -41,6 +41,14 @@
   @media (max-width: 768px) {
     min-width: 100vw;
   }
+
+  *:focus {
+    outline: none;
+  }
+  *:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: -2px;
+  }
 }
 
 .nav-list {
@@ -73,17 +81,20 @@
     text-decoration: none;
     transition: var(--transition);
 
-    &:hover,
-    &:focus-visible {
+    &:hover {
       background-color: var(--primary-hover);
     }
   }
 
   &.nav-item-back {
-    align-items: unset;
+    gap: 1.5rem;
     background-color: var(--primary-hover);
     .icon {
       transform: rotate(180deg);
+    }
+
+    &:hover {
+      background-color: oklch(from var(--primary-hover) calc(l - 0.15) c h);
     }
   }
 
@@ -99,8 +110,7 @@
 
     transition: var(--transition);
 
-    &:hover,
-    &:focus-visible {
+    &:hover {
       background-color: var(--primary-hover);
       color: var(--text-color-inverse);
     }

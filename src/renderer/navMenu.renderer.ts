@@ -26,12 +26,36 @@ export function renderNavMenu(options: NavOptions): HTMLElement {
 
     liBack.onclick = onBack;
 
+    liBack.onkeydown = (e) => {
+      const allowedKeyCodes: string[] = ["Enter", "Space", "ArrowLeft"];
+      if (allowedKeyCodes.includes(e.code)) {
+        e.preventDefault();
+        onBack();
+      }
+    };
+
+    liBack.setAttribute("tabindex", "0");
+
     ul.appendChild(liBack);
   }
 
   items.forEach((page) => {
     const li = document.createElement("li");
     li.classList.add("nav-item");
+
+    li.setAttribute("tabindex", "0");
+
+    li.onkeydown = (e) => {
+      const allowedKeyCodes: string[] = ["Enter", "Space"];
+      if (allowedKeyCodes.includes(e.code)) {
+        e.preventDefault();
+        navigation.navigate(a.href);
+        const dialog = li.closest("dialog") as HTMLDialogElement | null;
+        if (dialog) {
+          dialog.close();
+        }
+      }
+    };
 
     const a = document.createElement("a");
     a.href = page.fullPath || "#";
@@ -57,6 +81,17 @@ export function renderNavMenu(options: NavOptions): HTMLElement {
         e.stopPropagation();
         onNavigate(page.id);
       };
+
+      trigger.onkeydown = (e) => {
+        const allowedKeyCodes: string[] = ["Enter", "Space", "ArrowRight"];
+        if (allowedKeyCodes.includes(e.code)) {
+          e.preventDefault();
+          e.stopPropagation();
+          onNavigate(page.id);
+        }
+      };
+
+      trigger.setAttribute("tabindex", "0");
 
       li.appendChild(trigger);
     }
