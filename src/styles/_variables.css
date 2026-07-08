@@ -1,11 +1,9 @@
 :root {
   /* font */
-  font-size: 16px;
-  font-family:
-    Verdana,
-    Open Sans,
-    Helvetica Neue,
-    sans-serif;
+  --base-font-size: 16px;
+  --font-family: Verdana, Open Sans, Helvetica Neue, sans-serif;
+  font-size: var(--base-font-size);
+  font-family: var(--font-family);
   color: var(--text-color);
 
   /* color */
@@ -21,7 +19,7 @@
   --content-width: 960px;
   --content-grid: minmax(var(--gap), 1fr) minmax(auto, var(--content-width))
     minmax(var(--gap), 1fr);
-  --container-width: 1200px;
+  --container-width: 1400px;
   --container-grid: minmax(var(--gap), 1fr) minmax(auto, var(--container-width))
     minmax(var(--gap), 1fr);
   --padding: 0.75rem 1.25rem;
@@ -32,7 +30,7 @@
   --shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   --shadow-big: 4px 4px 10px rgba(0, 0, 0, 0.35);
   --border-radius: 0.5rem;
-  --transition: all 350ms ease;
+  --transition: all 150ms ease;
 }
 
 @media screen and (max-width: 900px) {

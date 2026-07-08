@@ -62,6 +62,9 @@ class Home extends Component {
     } else {
       for (const event of feedStore.futureEvents) {
         const li = document.createElement("li");
+        const icon = document.createElement("span");
+        icon.classList.add("icon");
+        li.appendChild(icon);
         const text = document.createElement("span");
         text.classList.add("text");
         text.textContent =

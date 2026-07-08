@@ -23,9 +23,18 @@
 }
 
 .logo {
-  height: 3rem;
-  aspect-ratio: 3/1;
-  background-color: gray;
+  height: 2.5rem;
+  transition: var(--transition);
+
+  img {
+    height: 100%;
+    width: auto;
+  }
+
+  &:hover,
+  &:focus-visible {
+    filter: drop-shadow(0 0 4px var(--primary));
+  }
 }
 
 #side-nav {

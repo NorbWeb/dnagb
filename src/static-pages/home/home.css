@@ -97,10 +97,20 @@
     padding: 0.5rem 0;
     cursor: pointer;
 
-    &::before {
-      content: "🌸";
-      margin-top: -2px;
+    .icon {
       transition: var(--transition);
+      width: 1.5rem;
+      height: 1.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+
+      &::before {
+        content: "🌸";
+        transition: var(--transition);
+        font-size: 1rem;
+      }
     }
 
     .text {
@@ -109,8 +119,10 @@
 
     &:hover,
     &:focus-visible {
-      &::before {
-        scale: 1.5;
+      .icon {
+        &::before {
+          font-size: 1.5rem;
+        }
       }
     }
   }

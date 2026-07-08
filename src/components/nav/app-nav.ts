@@ -3,6 +3,7 @@ import { renderNavMenu } from "../../renderer/navMenu.renderer";
 import styles from "./app-nav.css?inline";
 import { Component } from "../../utils/base-component";
 import navHtml from "./app-nav.html?raw";
+import { icon } from "../../utils/icon";
 
 class AppNav extends Component {
   static html = navHtml;
@@ -18,6 +19,13 @@ class AppNav extends Component {
 
   connectedCallback() {
     super.connectedCallback();
+
+    const toggleButton = this.shadowRoot?.querySelector("#side-nav-toggle");
+    if (toggleButton) {
+      toggleButton.innerHTML = "";
+      toggleButton.appendChild(icon("menu-open"));
+    }
+
     const dialog = this.shadowRoot?.getElementById(
       "side-nav",
     ) as HTMLDialogElement;
