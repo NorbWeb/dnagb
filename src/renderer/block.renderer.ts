@@ -136,10 +136,12 @@ export const renderBlock = (block: any, page: Page | null): HTMLElement => {
       downloadBox.appendChild(fileInfo);
 
       let fileName = document.createElement("span");
+      fileName.classList.add("file-name");
       fileName.textContent = block.data.file.title || block.data.file.name;
       fileInfo.appendChild(fileName);
 
       let fileSize = document.createElement("span");
+      fileSize.classList.add("file-size");
       function formatBytes(bytes: number, decimals = 1) {
         if (bytes === 0) return "0 Bytes";
 
