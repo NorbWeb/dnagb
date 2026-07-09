@@ -37,6 +37,8 @@ async function handleNavigation(pathname: string) {
 
   if (!page) {
     main.replaceChildren(document.createElement("page-error-404"));
+    document.title = `Seite nicht gefunden | ${settingsStore.settings?.title_short}`;
+
     return;
   }
 
@@ -49,6 +51,7 @@ async function handleNavigation(pathname: string) {
       document.title = `${page.title} | ${settingsStore.settings?.title_short}`;
     } else {
       newView = document.createElement("page-error-404");
+      document.title = `Seite nicht gefunden | ${settingsStore.settings?.title_short}`;
     }
   } else {
     newView = document.createElement("page-view");

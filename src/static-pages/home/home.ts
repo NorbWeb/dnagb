@@ -49,6 +49,16 @@ class Home extends Component {
         "</br>",
       );
     }
+
+    const banner = this.shadowRoot?.querySelector(
+      "#banner",
+    ) as HTMLImageElement;
+    if (banner && settingsStore.settings?.banner) {
+      console.log(settingsStore.settings?.banner);
+      banner.src = `${import.meta.env.VITE_CMS_URL}/assets/${settingsStore.settings?.banner}`;
+    } else {
+      banner.src = "/assets/placeholder.jpg";
+    }
   }
 
   render() {

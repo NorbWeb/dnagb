@@ -2,7 +2,7 @@
   height: 20rem;
   position: relative;
 
-  img.banner {
+  #banner {
     position: absolute;
     inset: 0;
     object-fit: cover;
