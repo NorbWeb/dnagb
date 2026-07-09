@@ -1,5 +1,6 @@
 @import "./_reset.css";
 @import "./_variables.css";
+@import "../components/button/button.css";
 
 main {
   padding-top: var(--header-height);
@@ -19,6 +20,11 @@ main {
     max-width: var(--container-width);
     margin: auto;
   }
+}
+
+#app,
+main {
+  min-height: 100vh;
 }
 
 .icon {

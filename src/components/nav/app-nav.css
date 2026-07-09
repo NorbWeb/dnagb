@@ -46,6 +46,9 @@
   border-top: 3px solid var(--primary);
   position-anchor: --nav-anchor;
   position-area: span-left bottom;
+  &::backdrop {
+    background-color: oklch(from black l c h / 0.5);
+  }
 
   @media (max-width: 768px) {
     min-width: 100vw;

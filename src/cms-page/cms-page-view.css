@@ -1,3 +1,5 @@
+@import "../styles/main.css";
+
 #dynamic-content {
   padding-bottom: var(--gap);
 
@@ -9,11 +11,17 @@
     border-radius: var(--border-radius);
     filter: drop-shadow(var(--shadow));
   }
-}
 
-.table-wrapper {
-  max-width: 100%;
-  overflow: hidden;
+  .table-wrapper {
+    max-width: 100%;
+    overflow: hidden;
+    margin-bottom: 2rem;
+
+    caption > * {
+      margin: 0;
+      text-align: left;
+    }
+  }
 }
 
 .file-download {

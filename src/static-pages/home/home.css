@@ -1,3 +1,5 @@
+@import "../../styles/main.css";
+
 #hero {
   height: 20rem;
   position: relative;
@@ -33,10 +35,14 @@
 
     .title {
       margin: 0;
-      font-family: arial;
       font-size: 4rem;
+      font-weight: 700;
       line-height: 5rem;
       color: var(--text-color-inverse);
+
+      &:after {
+        display: none;
+      }
     }
 
     .button-group {
