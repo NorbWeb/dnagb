@@ -60,3 +60,15 @@ export const formatDateRange = (
 
   return `${formattedDate} – ${dateFormater.format(endDate)}`;
 };
+
+export function updateTitle(path: string) {
+  // Eine einfache Map oder Switch-Anweisung für deine Seiten
+  let pageTitle = "";
+
+  if (path === "/") pageTitle = "Home";
+  else if (path.startsWith("/event/")) pageTitle = "Event Details";
+  else pageTitle = "Seite";
+
+  // Ergebnis: "DNagB | Home"
+  document.title = `${""} | ${pageTitle}`;
+}

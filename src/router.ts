@@ -1,4 +1,5 @@
 // router.ts
+import { settingsStore } from "./store/settings.store.ts";
 import { pageStore } from "./store/page.store";
 import "./static-pages/error-404/error-404.ts";
 import "./static-pages/news/news.ts";
@@ -12,6 +13,7 @@ async function handleNavigation(pathname: string) {
   // Redirect root path to /home
   if (pathname === "" || pathname === "/") {
     history.replaceState(null, "", "/home");
+    // document.title = `Home | ${settingsStore.settings?.title_short}`;
     return handleNavigation("/home");
   }
 
@@ -26,6 +28,7 @@ async function handleNavigation(pathname: string) {
     detailsView.setAttribute("id", id);
 
     main.replaceChildren(detailsView);
+    document.title = `${type.charAt(0).toUpperCase() + type.slice(1)} | ${settingsStore.settings?.title_short}`;
     return;
   }
 
@@ -43,12 +46,14 @@ async function handleNavigation(pathname: string) {
     const isDefined = customElements.get(page.component);
     if (isDefined) {
       newView = document.createElement(page.component);
+      document.title = `${page.title} | ${settingsStore.settings?.title_short}`;
     } else {
       newView = document.createElement("page-error-404");
     }
   } else {
     newView = document.createElement("page-view");
     newView.setAttribute("path", pathname);
+    document.title = `${page.title} | ${settingsStore.settings?.title_short}`;
   }
 
   main.replaceChildren(newView);

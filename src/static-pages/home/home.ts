@@ -6,6 +6,7 @@ import { renderNewsCard } from "../../renderer/card.render";
 import "../../components/news-card/news-card";
 import { formatDateRange } from "../../utils/helper";
 import { pageStore } from "../../store/page.store";
+import { settingsStore } from "../../store/settings.store";
 
 class Home extends Component {
   static html = html;
@@ -15,6 +16,7 @@ class Home extends Component {
     super();
     this.watch(feedStore._allContent);
     this.watch(pageStore._pages);
+    this.watch(settingsStore._settings);
   }
 
   navigate(url: string) {
@@ -24,6 +26,7 @@ class Home extends Component {
   connectedCallback() {
     super.connectedCallback();
     this.classList.add("full-width");
+
     const btnGroup = this.shadowRoot?.querySelector(".button-group");
     if (btnGroup) {
       const navBtn = pageStore.getHomeNavButtons();
@@ -37,6 +40,14 @@ class Home extends Component {
 
         btnGroup.appendChild(button);
       }
+    }
+
+    const title = this.shadowRoot?.querySelector("h1.title");
+    if (title && settingsStore.settings) {
+      title.innerHTML = settingsStore.settings?.title_long_1.replaceAll(
+        "|",
+        "</br>",
+      );
     }
   }
 

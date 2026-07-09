@@ -6,6 +6,7 @@ import "./components/nav/app-nav";
 
 import { initRouter } from "./router";
 import { testStore } from "./store/test.store";
+import { settingsStore } from "./store/settings.store";
 import { pageStore } from "./store/page.store";
 import { eventStore } from "./store/event.store";
 import { newsStore } from "./store/news.store";
@@ -46,6 +47,7 @@ if (import.meta.env.VITE_ENVIRONMENT !== "dev") {
 }
 
 async function init() {
+  await settingsStore.fetchSettings();
   await pageStore.fetchPages();
   initRouter();
   await eventStore.fetchEvents();
