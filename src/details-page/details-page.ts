@@ -38,7 +38,6 @@ class DetailsPage extends Component {
       info.textContent = `${formatDateRange(data.date_start, data.date_end, data.fe_type === "event")}${"author" in data ? ", " + data.author : ""}`;
       info.classList.add("info-created");
       article.appendChild(info);
-      console.log(`📢 ~ DetailsPage ~ data:`, data);
 
       // content blocks
       for (const block of data?.description?.blocks) {
