@@ -6,17 +6,26 @@ interface BlockEditorList {
   items: BlockEditorList[];
 }
 
+function findAnchorTagsAndAddTargetBlank(html: HTMLElement): HTMLElement {
+  let anchorTags = html.querySelectorAll("a");
+  anchorTags.forEach((anchor) => {
+    anchor.setAttribute("target", "_blank");
+  });
+
+  return html;
+}
+
 export const renderBlock = (block: any, page: Page | null): HTMLElement => {
   switch (block.type) {
     case "header":
       let header = document.createElement(`h${block.data.level}`);
       header.innerHTML = block.data.text;
-      return header;
+      return findAnchorTagsAndAddTargetBlank(header);
 
     case "paragraph":
       let p = document.createElement("p");
       p.innerHTML = block.data.text;
-      return p;
+      return findAnchorTagsAndAddTargetBlank(p);
 
     case "quote":
       let quoteFigure = document.createElement("figure");
@@ -31,7 +40,7 @@ export const renderBlock = (block: any, page: Page | null): HTMLElement => {
       if (block.data.caption && block.data.caption !== "<br>") {
         blockquote.appendChild(quoteFigcaption);
       }
-      return quoteFigure;
+      return findAnchorTagsAndAddTargetBlank(quoteFigure);
 
     case "delimiter":
       let delimiter = document.createElement("hr");
@@ -50,7 +59,7 @@ export const renderBlock = (block: any, page: Page | null): HTMLElement => {
         li.className = item.checked ? "checked" : "unchecked";
         ul.appendChild(li);
       }
-      return ul;
+      return findAnchorTagsAndAddTargetBlank(ul);
 
     case "table":
       let wrapper = document.createElement("div");
@@ -92,7 +101,7 @@ export const renderBlock = (block: any, page: Page | null): HTMLElement => {
       table.appendChild(thead);
       table.appendChild(tbody);
       wrapper.appendChild(table);
-      return wrapper;
+      return findAnchorTagsAndAddTargetBlank(wrapper);
 
     case "nestedlist":
       function generateListElements(block: any) {
@@ -125,7 +134,7 @@ export const renderBlock = (block: any, page: Page | null): HTMLElement => {
         return listElement;
       }
       const newList = generateListElements(block);
-      return newList;
+      return findAnchorTagsAndAddTargetBlank(newList);
 
     case "attaches":
       let downloadBox = document.createElement("a");
@@ -165,7 +174,7 @@ export const renderBlock = (block: any, page: Page | null): HTMLElement => {
       fileSize.textContent = formatBytes(block.data.file.size);
       fileInfo.appendChild(fileSize);
 
-      return downloadBox;
+      return findAnchorTagsAndAddTargetBlank(downloadBox);
 
     case "image":
       const { name, title, url } = block.data.file;
@@ -182,7 +191,7 @@ export const renderBlock = (block: any, page: Page | null): HTMLElement => {
       figure.appendChild(img);
       figure.appendChild(figcaption);
 
-      return figure;
+      return findAnchorTagsAndAddTargetBlank(figure);
 
     default:
       console.debug("unmatched block: ", block);

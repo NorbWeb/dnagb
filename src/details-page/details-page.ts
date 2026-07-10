@@ -35,7 +35,7 @@ class DetailsPage extends Component {
 
       // info
       let info = document.createElement("div");
-      info.textContent = `${formatDateRange(data.date_start, null, false)}${"author" in data ? ", " + data.author : ""}`;
+      info.textContent = `${formatDateRange(data.date_start, data.date_end, data.fe_type === "event")}${"author" in data ? ", " + data.author : ""}`;
       info.classList.add("info-created");
       article.appendChild(info);
       console.log(`📢 ~ DetailsPage ~ data:`, data);
