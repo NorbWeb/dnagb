@@ -1,4 +1,5 @@
 import type { Page } from "../types/page";
+import { icon } from "../utils/icon";
 
 interface BlockEditorList {
   content: string;
@@ -22,12 +23,14 @@ export const renderBlock = (block: any, page: Page | null): HTMLElement => {
       quoteFigure.classList.add("quote-figure");
       let blockquote = document.createElement("blockquote");
       quoteFigure.appendChild(blockquote);
-      let blockText = document.createElement("p");
+      let blockText = document.createElement("div");
       blockText.innerHTML = block.data.text;
       blockquote.appendChild(blockText);
       let quoteFigcaption = document.createElement("figcaption");
       quoteFigcaption.innerHTML = block.data.caption;
-      quoteFigure.appendChild(quoteFigcaption);
+      if (block.data.caption && block.data.caption !== "<br>") {
+        blockquote.appendChild(quoteFigcaption);
+      }
       return quoteFigure;
 
     case "delimiter":
@@ -39,7 +42,11 @@ export const renderBlock = (block: any, page: Page | null): HTMLElement => {
       ul.className = "checklist-display";
       for (const item of block.data.items) {
         const li = document.createElement("li");
-        li.innerHTML = item.text;
+        const mark = icon(item.checked ? "checked" : "unchecked");
+        li.appendChild(mark);
+        const span = document.createElement("span");
+        span.innerHTML = item.text;
+        li.appendChild(span);
         li.className = item.checked ? "checked" : "unchecked";
         ul.appendChild(li);
       }
