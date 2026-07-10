@@ -3,6 +3,7 @@ import html from "./details-page.html?raw";
 import styles from "./details-page.css?inline";
 import { renderBlock } from "../renderer/block.renderer";
 import { feedStore } from "../store/combined-feed.store";
+import { formatDateRange } from "../utils/helper";
 
 class DetailsPage extends Component {
   static html = html;
@@ -27,6 +28,19 @@ class DetailsPage extends Component {
     const data = feedStore.filterById(id, type);
 
     if (data && data.description) {
+      // title
+      let title = document.createElement(`h1`);
+      title.textContent = data.title;
+      article.appendChild(title);
+
+      // info
+      let info = document.createElement("div");
+      info.textContent = `${formatDateRange(data.date_start, null, false)}${"author" in data ? ", " + data.author : ""}`;
+      info.classList.add("info-created");
+      article.appendChild(info);
+      console.log(`📢 ~ DetailsPage ~ data:`, data);
+
+      // content blocks
       for (const block of data?.description?.blocks) {
         article.appendChild(renderBlock(block, null));
       }

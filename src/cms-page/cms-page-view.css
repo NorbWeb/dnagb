@@ -24,6 +24,11 @@
   }
 }
 
+.info-created {
+  margin-top: 0.25rem;
+  font-style: italic;
+}
+
 .file-download {
   display: flex;
   align-items: center;
