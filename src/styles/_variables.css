@@ -8,8 +8,10 @@
 
   /* color */
   --primary: #f2a606;
+  --primary-text: #22262a;
   --primary-hover: oklch(from var(--primary) l c h / 0.2);
-  --secondary: #15605f;
+  --accent: #15605f;
+  --accent-text: #f1f2f4;
   --element-bg: #fff;
   --element-bg-dark: #22262a;
   --text-color: #22262a;

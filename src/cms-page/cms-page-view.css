@@ -61,7 +61,7 @@
     background-color: firebrick;
     font-size: 0.65rem;
     font-weight: 700;
-    color: var(--text, white);
+    color: #fff;
   }
 
   .file-info {
@@ -84,10 +84,10 @@
 
 blockquote {
   border-radius: var(--border-radius);
-  background-color: oklch(from var(--secondary) l c h / 0.1);
-  border: 1px solid oklch(from var(--secondary) l c h / 0.2);
+  background-color: oklch(from var(--accent) l c h / 0.1);
+  border: 1px solid oklch(from var(--accent) l c h / 0.2);
   padding: 0.5rem 0.75rem;
-  border-left: 4px solid var(--secondary);
+  border-left: 4px solid var(--accent);
   display: flex;
   flex-direction: column;
   gap: 1rem;

@@ -23,13 +23,29 @@ export class SettingsStore {
 
     this._settings.value = cmsData;
 
-    // console.log(`📢 ~ SettingsStore ~ _settings:`, this._settings.value);
-    // if (this._settings.value?.primary) {
-    //   document.documentElement.style.setProperty(
-    //     "--primary",
-    //     this._settings.value?.primary,
-    //   );
-    // }
+    console.log(`📢 ~ SettingsStore ~ _settings:`, this._settings.value);
+    if (this._settings.value?.primary) {
+      document.documentElement.style.setProperty(
+        "--primary",
+        this._settings.value?.primary,
+      );
+      document.documentElement.style.setProperty(
+        "--primary-text",
+        this._settings.value?.primary_text,
+      );
+      document.documentElement.style.setProperty(
+        "--accent",
+        this._settings.value?.accent,
+      );
+      document.documentElement.style.setProperty(
+        "--text",
+        this._settings.value?.text,
+      );
+      document.documentElement.style.setProperty(
+        "--text-inverse",
+        this._settings.value?.text_inverse,
+      );
+    }
   }
 
   get settings() {

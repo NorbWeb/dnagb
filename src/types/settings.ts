@@ -8,8 +8,9 @@ export interface Settings {
   title_short: string;
   title_long_1: string;
   primary: string;
-  secondary: string;
+  accent: string;
   primary_text: string;
-  secondary_text: string;
+  text: string;
+  text_inverse: string;
   banner: null | string;
 }

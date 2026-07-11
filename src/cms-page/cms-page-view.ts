@@ -21,25 +21,30 @@ class PageView extends Component {
     if (!article) return;
 
     if (!page) {
-      article.innerHTML = `Seite konnte nicht geladen werden`;
+      article.innerHTML = `<p>Seite konnte nicht geladen werden</p>`;
       return;
     }
 
     article.innerHTML = "";
 
-    if (page.show_titel === "true") {
+    if ("show_titel" in page && page.show_titel === "true") {
       let title = document.createElement(`h1`);
       title.textContent = page.title;
       article.appendChild(title);
     }
 
-    if (page.content_radio_switch === "text_editor") {
+    if (
+      "content_radio_switch" in page &&
+      page.content_radio_switch === "text_editor"
+    ) {
       article.innerHTML += page.text_editor
         ? modifiedTextEditor(page)
-        : `Die Seite „${page.title}“ hat noch keinen Inhalt.`;
+        : `<p>Die Seite „${page.title}“ hat noch keinen Inhalt.</p>`;
     }
 
     if (
+      "content_radio_switch" in page &&
+      "block_editor" in page &&
       page.content_radio_switch === "block_editor" &&
       page.block_editor?.blocks
     ) {
