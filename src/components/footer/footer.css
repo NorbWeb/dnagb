@@ -1,0 +1,7 @@
+@import "../../styles/main.css";
+@import "../../cms-page/cms-page-view.css";
+
+#footer {
+  min-height: var(--footer-height);
+  background-color: var(--element-bg-dark);
+}

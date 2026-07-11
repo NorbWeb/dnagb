@@ -4,6 +4,15 @@ import type { StaticPage } from "../types/staticPage";
 
 export class PageStore {
   _pages = new Signal<(StaticPage | Page)[]>([]);
+  _footerLinks = new Signal<(StaticPage | Page)[]>([]);
+
+  private sortPages(pages: (StaticPage | Page)[]): (StaticPage | Page)[] {
+    return [...pages].sort((a, b) => {
+      const sortA = a.sort || -1;
+      const sortB = b.sort || -1;
+      return sortA - sortB;
+    });
+  }
 
   async fetchPages() {
     const staticRoutes: StaticPage[] = [
@@ -57,24 +66,27 @@ export class PageStore {
       console.error("Fetch-Vorgang fehlgeschlagen:", error);
     }
 
-    const allMenuPages: (Page | StaticPage)[] = [
-      ...staticRoutes.filter((route) => route.status === "published"),
-      ...cmsData.filter((page: Page) => page.link_location === "menu"),
-    ];
+    this._pages.value = this.processPages([
+      ...staticRoutes.filter((r) => r.status === "published"),
+      ...cmsData.filter((p) => p.link_location === "menu"),
+    ]);
 
-    allMenuPages.sort((a, b) => {
-      const sortA = a.sort === 0 || !a.sort ? -1 : a.sort;
-      const sortB = b.sort === 0 || !b.sort ? -1 : b.sort;
+    this._footerLinks.value = this.processPages(
+      cmsData.filter((p) => p.link_location === "footer"),
+    );
+  }
 
-      return sortA - sortB;
-    });
-
-    // Pfade für die flache Liste generieren und in den Store schreiben
-    this._pages.value = this.buildPaths(allMenuPages);
+  private processPages(items: (Page | StaticPage)[]): (Page | StaticPage)[] {
+    const sorted = this.sortPages(items);
+    return this.buildPaths(sorted);
   }
 
   get pages() {
     return this._pages;
+  }
+
+  get footerLinks() {
+    return this._footerLinks;
   }
 
   getChildren(parentId: string | null) {
@@ -85,14 +97,13 @@ export class PageStore {
     return this._pages.value.find((p) => p.id === parentId);
   }
 
-  // NEU: Performante Prüfung, ob eine Seite Unterseiten hat
   hasChildren(parentId: string) {
     return this._pages.value.some((p) => p.parent === parentId);
   }
 
   findByPath(pathName: string) {
-    return this._pages.value.find(
-      (f: Page | StaticPage) => f.fullPath === pathName,
+    return [...this._pages.value, ...this._footerLinks.value].find(
+      (p) => p.fullPath === pathName,
     );
   }
 
@@ -102,7 +113,6 @@ export class PageStore {
     );
   }
 
-  // NEU: Berechnet die vollen Pfade sicher anhand der flachen Parent-IDs
   private buildPaths(pages: (Page | StaticPage)[]): (Page | StaticPage)[] {
     const pageMap = new Map(pages.map((p) => [p.id, p]));
 

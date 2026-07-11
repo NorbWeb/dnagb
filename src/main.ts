@@ -3,6 +3,7 @@ import "./cms-page/cms-page-view";
 import "./details-page/details-page";
 import "./components/button/button";
 import "./components/nav/app-nav";
+import "./components/footer/footer";
 
 import { initRouter } from "./router";
 import { testStore } from "./store/test.store";
