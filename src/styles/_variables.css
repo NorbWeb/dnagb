@@ -4,7 +4,7 @@
   --font-family: "Inter", sans-serif, "Verdana", Open Sans, Helvetica Neue;
   font-size: var(--base-font-size);
   font-family: var(--font-family);
-  color: var(--text-color);
+  color: var(--text);
 
   /* color */
   --primary: #f2a606;
@@ -14,8 +14,8 @@
   --accent-text: #f1f2f4;
   --element-bg: #fff;
   --element-bg-dark: #22262a;
-  --text-color: #22262a;
-  --text-color-inverse: #f1f2f4;
+  --text: #22262a;
+  --text-inverse: #f1f2f4;
 
   /* layout */
   --content-width: 960px;
@@ -30,9 +30,12 @@
 
   /* effect */
   --shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  --shadow-big: 4px 4px 10px rgba(0, 0, 0, 0.35);
+  --shadow-big: 0 0 1rem 0.5rem rgba(0, 0, 0, 0.1);
+  --shadow-primary: 0px 0px 1rem 0.5rem oklch(from var(--primary) l c h / 0.15);
   --border-radius: 0.5rem;
-  --transition: all 150ms ease;
+  --transition:
+    background-color 150ms ease, box-shadow 150ms ease, filter 150ms ease,
+    font-size 150ms ease, color 150ms ease;
 }
 
 @media screen and (max-width: 900px) {

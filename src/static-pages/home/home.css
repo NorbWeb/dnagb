@@ -38,7 +38,7 @@
       font-size: 4rem;
       font-weight: 700;
       line-height: 5rem;
-      color: var(--text-color-inverse);
+      color: var(--text-inverse);
 
       &:after {
         display: none;
@@ -99,7 +99,6 @@
     display: flex;
     align-items: flex-start;
     gap: 0.5rem;
-    transition: var(--transition);
     padding: 0.5rem 0;
     cursor: pointer;
 
@@ -117,10 +116,6 @@
         transition: var(--transition);
         font-size: 1rem;
       }
-    }
-
-    .text {
-      transition: var(--transition);
     }
 
     &:hover,

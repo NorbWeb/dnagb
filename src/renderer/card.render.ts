@@ -19,15 +19,7 @@ export function renderNewsCard(element: any): HTMLElement {
 
   // Basistexte
   card.setAttribute("title", element.title);
-  let short =
-    element.fe_type === "news"
-      ? "Lese hier den gesamten Beitrag."
-      : "Weitere Details zur Veranstaltung findest du hier.";
-
-  card.setAttribute(
-    "teaser",
-    element.short_description ? element.short_description : short,
-  );
+  card.setAttribute("teaser", element.short_description || "");
   card.setAttribute("link-url", `/${element.fe_type}/${element.id}`);
 
   // Datum und Link-Text

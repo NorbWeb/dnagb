@@ -1,6 +1,7 @@
 import { Component } from "../../utils/base-component";
 import html from "./news-card.html?raw";
 import styles from "./news-card.css?inline";
+import { icon } from "../../utils/icon";
 
 class NewsCard extends Component {
   static html = html;
@@ -19,6 +20,11 @@ class NewsCard extends Component {
 
   constructor() {
     super();
+
+    const fakeLink = this.shadowRoot?.querySelector(".fake-link");
+    if (fakeLink) {
+      fakeLink.appendChild(icon("arrow-right"));
+    }
   }
 
   render() {
@@ -30,10 +36,8 @@ class NewsCard extends Component {
     const attrImgAlt = this.getAttribute("img-alt") || "Bild";
 
     const attrTitle = this.getAttribute("title") || "Titel";
-    const attrTeaser = this.getAttribute("teaser") || "Teaser";
+    const attrTeaser = this.getAttribute("teaser") || "";
     const attrDate = this.getAttribute("date") || "Date";
-
-    const attrLinkText = this.getAttribute("link-text") || "Mehr";
 
     const card = this.shadowRoot?.querySelector(".card");
     if (card && attrIsPast === "true") {
@@ -62,13 +66,11 @@ class NewsCard extends Component {
     }
 
     const teaser = this.shadowRoot?.querySelector(".teaser");
-    if (teaser) {
+    if (teaser && attrTeaser !== "") {
       teaser.textContent = attrTeaser;
-    }
-
-    const fakeLink = this.shadowRoot?.querySelector(".fake-link");
-    if (fakeLink) {
-      fakeLink.textContent = attrLinkText;
+      teaser.classList.remove("empty");
+    } else {
+      teaser?.classList.add("empty");
     }
   }
 }

@@ -9,12 +9,12 @@
   transition: var(--transition);
   background-color: var(--element-bg);
   position: relative;
-  filter: drop-shadow(var(--shadow));
+  box-shadow: var(--shadow);
   width: 100%;
 
   &.is-past {
     opacity: 0.6;
-    filter: grayscale(0.8) drop-shadow(var(--shadow));
+    filter: grayscale(0.8);
 
     &::before {
       content: "Abgelaufen";
@@ -31,14 +31,10 @@
 
   &:hover,
   &:focus-visible {
-    filter: drop-shadow(var(--shadow-big));
+    box-shadow: var(--shadow-big);
 
     &.is-past {
-      filter: grayscale(0.8) drop-shadow(var(--shadow-big));
-    }
-
-    .fake-link::after {
-      width: 100%;
+      filter: grayscale(0.8);
     }
   }
 }
@@ -56,8 +52,20 @@
   flex-direction: column;
   display: flex;
   padding: var(--padding);
-  gap: 0.5rem;
   flex: 1;
+}
+
+.date {
+  font-style: italic;
+  font-size: 0.875rem;
+}
+
+.teaser {
+  margin: 1rem 0 auto 0;
+
+  &.empty {
+    margin: 0 0 auto 0;
+  }
 }
 
 .image {
@@ -74,21 +82,13 @@
 }
 
 .fake-link {
-  margin-top: auto;
-  color: var(--accent, blue);
-  font-weight: 700;
-  transition: var(--transition);
-  position: relative;
   width: fit-content;
-
-  &::after {
-    transition: var(--transition);
-    content: "";
-    display: block;
-    position: relative;
-    left: 0;
-    width: 0;
-    height: 0.175rem;
-    background-color: var(--accent);
-  }
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  border-radius: var(--border-radius);
+  padding: 0.25rem 0.5rem;
+  transition: var(--transition);
 }
