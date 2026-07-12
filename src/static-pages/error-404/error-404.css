@@ -6,3 +6,11 @@
   padding: 2rem;
   text-align: center;
 }
+
+h1:after {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+}

@@ -4,4 +4,26 @@
 #footer {
   min-height: var(--footer-height);
   background-color: var(--element-bg-dark);
+  display: grid;
+  grid-template-columns: var(--container-grid);
+
+  nav {
+    grid-column: 2;
+    display: flex;
+    justify-content: space-evenly;
+    gap: var(--gap);
+    align-items: center;
+    height: 100%;
+  }
+
+  a {
+    color: var(--text-inverse);
+    text-decoration: none;
+    transition: var(--transition);
+
+    &:hover,
+    &:focus-visible {
+      color: var(--primary);
+    }
+  }
 }

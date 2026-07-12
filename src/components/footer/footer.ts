@@ -14,13 +14,17 @@ class Footer extends Component {
 
   render() {
     const footer = this.shadowRoot?.querySelector("#footer");
+    const navBar = document.createElement("nav");
+
     if (footer) {
+      footer.innerHTML = "";
       for (const page of pageStore.footerLinks.value) {
         const anchor = document.createElement("a");
         anchor.textContent = page.title;
         anchor.href = page.fullPath;
-        footer.appendChild(anchor);
+        navBar.appendChild(anchor);
       }
+      footer.appendChild(navBar);
     }
   }
 }
