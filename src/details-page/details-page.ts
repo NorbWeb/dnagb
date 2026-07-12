@@ -18,7 +18,7 @@ class DetailsPage extends Component {
   }
 
   render() {
-    const article = this.shadowRoot?.getElementById("details-content");
+    const article = this.shadowRoot?.getElementById("dynamic-content");
     if (!article) return;
     article.innerHTML = "";
 

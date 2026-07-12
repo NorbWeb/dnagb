@@ -18,7 +18,7 @@ main {
   > .container-width {
     grid-column: 1 / -1;
     max-width: var(--container-width);
-    margin: auto;
+    margin: 0 auto;
   }
 }
 

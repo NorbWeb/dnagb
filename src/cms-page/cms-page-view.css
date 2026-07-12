@@ -1,31 +1,32 @@
 @import "../styles/main.css";
 
 #dynamic-content {
-  padding-bottom: var(--gap);
+  padding-bottom: calc(var(--gap) * 2);
+  word-wrap: break-word;
 
   &:last-child {
     margin-bottom: 0;
   }
+}
 
-  img {
-    border-radius: var(--border-radius);
-    filter: drop-shadow(var(--shadow));
-  }
+img {
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
 
-  .table-wrapper {
-    max-width: 100%;
-    overflow: hidden;
-    margin-bottom: 2rem;
+.table-wrapper {
+  max-width: 100%;
+  overflow: hidden;
+  margin-bottom: 2rem;
 
-    caption > * {
-      margin: 0;
-      text-align: left;
-    }
+  caption > * {
+    margin: 0;
+    text-align: left;
   }
 }
 
 .info-created {
-  margin-top: 0.25rem;
+  margin: 0.25rem 0 1rem;
   font-style: italic;
 }
 

@@ -14,10 +14,26 @@ class News extends Component {
     super();
     this.watch(feedStore._allContent);
     this.watch(feedStore._filter);
+
+    const filterBar = this.shadowRoot?.getElementById("filter-bar");
+    const allFilter = filterBar?.querySelector("#all-filter");
+
+    filterBar?.addEventListener("click", (event) => {
+      const target = event.target;
+      if (target instanceof HTMLInputElement) {
+        console.log(target.value);
+        if (target.value === feedStore.filter) {
+          feedStore.setFilter("all");
+          if (allFilter && allFilter instanceof HTMLInputElement)
+            allFilter.checked = true;
+        } else {
+          feedStore.setFilter(target.value);
+        }
+      }
+    });
   }
 
   connectedCallback() {
-    // Füge dem Host-Element eine Klasse hinzu
     super.connectedCallback();
     this.classList.add("container-width");
   }
@@ -31,13 +47,6 @@ class News extends Component {
       const card = renderNewsCard(element);
       container.appendChild(card);
     }
-
-    this.shadowRoot?.querySelectorAll("app-button").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const filter = btn.getAttribute("data-filter");
-        if (filter) feedStore.setFilter(filter);
-      });
-    });
   }
 }
 

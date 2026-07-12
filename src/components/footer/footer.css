@@ -10,6 +10,7 @@
   nav {
     grid-column: 2;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
     gap: var(--gap);
     align-items: center;

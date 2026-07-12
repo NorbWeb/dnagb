@@ -19,6 +19,28 @@
   gap: var(--gap);
 }
 
+#filter-bar {
+  font-size: unset;
+
+  .form-group {
+    user-select: none;
+
+    .btn {
+      background-color: oklch(from var(--primary) l calc(c * 0.1) h);
+    }
+
+    &:has(input:checked) {
+      .btn {
+        background-color: var(--primary);
+      }
+    }
+  }
+
+  input {
+    display: none;
+  }
+}
+
 .news-content {
   --min-col-size: 300px;
 

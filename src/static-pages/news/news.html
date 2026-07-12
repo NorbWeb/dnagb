@@ -1,11 +1,17 @@
 <div id="news">
   <h1 class="title">
     Aktuelles
-    <div class="filter-bar">
-      <app-button data-filter="news">News</app-button>
-      <app-button data-filter="event">Events</app-button>
-      <app-button data-filter="all">Alles</app-button>
-    </div>
+    <form id="filter-bar" class="filter-bar">
+      <span class="form-group">
+        <input type="radio" name="filter" id="news-filter" value="news" />
+        <label class="btn" for="news-filter">News</label>
+      </span>
+      <span class="form-group">
+        <input type="radio" name="filter" id="event-filter" value="event" />
+        <label class="btn" for="event-filter">Events</label>
+      </span>
+      <input checked type="radio" name="filter" id="all-filter" value="all" />
+    </form>
   </h1>
   <div class="news-content"></div>
 </div>
