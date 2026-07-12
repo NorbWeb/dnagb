@@ -10,56 +10,59 @@ async function handleNavigation(pathname: string) {
   const main = document.querySelector("main");
   if (!main) return;
 
-  // Redirect root path to /home
-  if (pathname === "" || pathname === "/") {
-    history.replaceState(null, "", "/home");
-    // document.title = `Home | ${settingsStore.settings?.title_short}`;
-    return handleNavigation("/home");
-  }
+  // Diese Funktion baut den neuen View-Inhalt zusammen
+  const updateDOM = () => {
+    // 1. Root redirect
+    if (pathname === "" || pathname === "/") {
+      history.replaceState(null, "", "/home");
+      return handleNavigation("/home");
+    }
 
-  // Handle event and news details pages
-  if (pathname.startsWith("/event/") || pathname.startsWith("/news/")) {
-    const parts = pathname.split("/");
-    const type = parts[1];
-    const id = parts[2];
+    // 2. Details pages
+    if (pathname.startsWith("/event/") || pathname.startsWith("/news/")) {
+      const parts = pathname.split("/");
+      const type = parts[1];
+      const id = parts[2];
+      const detailsView = document.createElement("app-details-page");
+      detailsView.setAttribute("type", type);
+      detailsView.setAttribute("id", id);
+      main.replaceChildren(detailsView);
+      document.title = `${type.charAt(0).toUpperCase() + type.slice(1)} | ${settingsStore.settings?.title_short}`;
+      return;
+    }
 
-    const detailsView = document.createElement("app-details-page");
-    detailsView.setAttribute("type", type);
-    detailsView.setAttribute("id", id);
+    // 3. Static/Dynamic pages
+    const page = pageStore.findByPath(pathname);
+    if (!page) {
+      main.replaceChildren(document.createElement("page-error-404"));
+      document.title = `Seite nicht gefunden | ${settingsStore.settings?.title_short}`;
+      return;
+    }
 
-    main.replaceChildren(detailsView);
-    document.title = `${type.charAt(0).toUpperCase() + type.slice(1)} | ${settingsStore.settings?.title_short}`;
-    return;
-  }
-
-  // Handle static pages and dynamic pages
-  const page = pageStore.findByPath(pathname);
-
-  if (!page) {
-    main.replaceChildren(document.createElement("page-error-404"));
-    document.title = `Seite nicht gefunden | ${settingsStore.settings?.title_short}`;
-
-    return;
-  }
-
-  let newView: HTMLElement;
-
-  if (page.static_page && page.component) {
-    const isDefined = customElements.get(page.component);
-    if (isDefined) {
-      newView = document.createElement(page.component);
+    let newView: HTMLElement;
+    if (page.static_page && page.component) {
+      const isDefined = customElements.get(page.component);
+      newView = document.createElement(
+        isDefined ? page.component : "page-error-404",
+      );
       document.title = `${page.title} | ${settingsStore.settings?.title_short}`;
     } else {
-      newView = document.createElement("page-error-404");
-      document.title = `Seite nicht gefunden | ${settingsStore.settings?.title_short}`;
+      newView = document.createElement("page-view");
+      newView.setAttribute("path", pathname);
+      document.title = `${page.title} | ${settingsStore.settings?.title_short}`;
     }
-  } else {
-    newView = document.createElement("page-view");
-    newView.setAttribute("path", pathname);
-    document.title = `${page.title} | ${settingsStore.settings?.title_short}`;
-  }
 
-  main.replaceChildren(newView);
+    main.replaceChildren(newView);
+  };
+
+  // --- HIER IST DIE MAGIE ---
+  if (document.startViewTransition) {
+    // Browser führt Update innerhalb der Transition aus
+    await document.startViewTransition(() => updateDOM()).finished;
+  } else {
+    // Fallback für Browser ohne View Transition Support
+    updateDOM();
+  }
 }
 
 export function initRouter() {

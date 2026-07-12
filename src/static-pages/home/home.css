@@ -19,7 +19,7 @@
     left: 0;
     background: linear-gradient(
       90deg,
-      rgba(0, 0, 0, 0.93) 30%,
+      var(--element-bg-dark) 30%,
       transparent 100%
     );
   }

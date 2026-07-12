@@ -2,6 +2,11 @@
 @import "./_variables.css";
 @import "../components/button/button.css";
 
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.15s;
+}
+
 main {
   padding-top: var(--header-height);
   display: grid;
