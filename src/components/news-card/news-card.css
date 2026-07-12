@@ -62,6 +62,7 @@
 
 .teaser {
   margin: 1rem 0 auto 0;
+  word-wrap: break-word;
 
   &.empty {
     margin: 0 0 auto 0;
