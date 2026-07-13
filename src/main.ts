@@ -17,7 +17,7 @@ const setButton = document.getElementById("setButton");
 const getButton = document.getElementById("getButton");
 const resetButton = document.getElementById("resetButton");
 
-setButton?.addEventListener("click", (e: any) => {
+setButton?.addEventListener("click", () => {
   switch (testStore.test.length) {
     case 0:
       testStore.add("1");
@@ -33,7 +33,7 @@ setButton?.addEventListener("click", (e: any) => {
   }
 });
 
-getButton?.addEventListener("click", (e: any) => {
+getButton?.addEventListener("click", () => {
   console.log(testStore.test);
 });
 

@@ -9,7 +9,7 @@ export function icon(iconId: string): SVGSVGElement {
 
   const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
 
-  use.setAttribute("href", `/icons/sprite.svg#${iconId}`);
+  use.setAttribute("href", `/assets/icons/sprite.svg#${iconId}`);
 
   svg.appendChild(use);
   return svg;
