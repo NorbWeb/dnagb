@@ -7,7 +7,7 @@ export interface News {
   user_updated: null | string;
   date_updated: null | string;
   article: string;
-  description: any;
+  details: any;
   image: any;
   title: string;
   short_description: string;

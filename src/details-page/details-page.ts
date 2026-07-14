@@ -27,7 +27,7 @@ class DetailsPage extends Component {
 
     const data = feedStore.filterById(id, type);
 
-    if (data && data.description) {
+    if (data && data.details) {
       // title
       let title = document.createElement(`h1`);
       title.textContent = data.title;
@@ -40,7 +40,7 @@ class DetailsPage extends Component {
       article.appendChild(info);
 
       // content blocks
-      for (const block of data?.description?.blocks) {
+      for (const block of data?.details?.blocks) {
         article.appendChild(renderBlock(block, null));
       }
     } else {

@@ -6,7 +6,7 @@ export interface NagEvent {
   date_created: string;
   user_updated: null | string;
   date_updated: null | string;
-  description: any;
+  details: any;
   date_start: string;
   date_end: string;
   location_name: string;
