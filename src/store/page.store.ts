@@ -46,7 +46,7 @@ export class PageStore {
         component: "app-dojo",
         static_page: true,
         parent: null,
-        status: "draft",
+        status: "published",
         id: "naginata-group",
       },
     ];

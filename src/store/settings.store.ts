@@ -23,7 +23,6 @@ export class SettingsStore {
 
     this._settings.value = cmsData;
 
-    console.log(`📢 ~ SettingsStore ~ _settings:`, this._settings.value);
     if (this._settings.value?.primary) {
       document.documentElement.style.setProperty(
         "--primary",

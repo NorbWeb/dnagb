@@ -4,6 +4,7 @@ import "./details-page/details-page";
 import "./components/button/button";
 import "./components/nav/app-nav";
 import "./components/footer/footer";
+import "../node_modules/maplibre-gl/dist/maplibre-gl.css";
 
 import { initRouter } from "./router";
 import { testStore } from "./store/test.store";
@@ -11,6 +12,7 @@ import { settingsStore } from "./store/settings.store";
 import { pageStore } from "./store/page.store";
 import { eventStore } from "./store/event.store";
 import { newsStore } from "./store/news.store";
+import { dojoStore } from "./store/dojo.store";
 
 // dev tools
 const setButton = document.getElementById("setButton");
@@ -53,6 +55,7 @@ async function init() {
   initRouter();
   await eventStore.fetchEvents();
   await newsStore.fetchNews();
+  await dojoStore.fetchDojos();
 }
 
 init();

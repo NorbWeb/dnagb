@@ -1,1 +1,36 @@
 @import "../../styles/main.css";
+@import "../../../node_modules/maplibre-gl/dist/maplibre-gl.css";
+
+#map {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  height: calc(100vh - var(--header-height) - var(--footer-height));
+}
+
+.dojo-marker {
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--border-radius);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:before {
+    content: "📍";
+    font-size: 1.75rem;
+    line-height: 1.75rem;
+  }
+  cursor: pointer;
+  box-shadow: var(--shadow);
+
+  &:hover {
+    box-shadow: var(--shadow-big);
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: -1.5rem;
+    }
+  }
+}
