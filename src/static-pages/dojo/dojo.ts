@@ -11,6 +11,8 @@ import {
   type LngLatLike,
 } from "maplibre-gl";
 import { covertToGeoJson } from "../../utils/helper";
+import { icon } from "../../utils/icon";
+import type { DojoInfo } from "../../types/dojo";
 
 class Dojo extends Component {
   static html = html;
@@ -38,9 +40,16 @@ class Dojo extends Component {
 
   initMap() {
     const mapContainer = this.shadowRoot?.querySelector("#map");
+    const dialog = this.shadowRoot?.querySelector(
+      "#dojo-dialog",
+    ) as HTMLDialogElement;
 
     if (!mapContainer) {
       console.error("Map container not found in shadowRoot");
+      return;
+    }
+
+    if (!dialog) {
       return;
     }
 
@@ -93,10 +102,23 @@ class Dojo extends Component {
         el.addEventListener("click", (e: Event) => {
           e.stopPropagation();
           dojoStore.setDojoInfo(dojo, "geojson");
+          let info = dojoStore.dojoInfo;
           console.log(dojoStore.dojoInfo);
 
-          // this.dojoDialog()?.nativeElement.show();
-          // const dialog = this.dojoDialog();
+          dialog.showModal();
+          const dLink = dialog.querySelector(".link") as HTMLAnchorElement;
+          dLink.href = info.link;
+          const dName = dialog.querySelector(".name") as HTMLDivElement;
+          dName.textContent = info.name;
+          const dCity = dialog.querySelector(".city") as HTMLDivElement;
+          dCity.textContent = info.city;
+          const dImag = dialog.querySelector(".logo") as HTMLImageElement;
+          dImag.src = info.logo;
+          const dDescription = dialog.querySelector(
+            ".description",
+          ) as HTMLDivElement;
+          dDescription.innerHTML = info.description;
+
           // if (dialog && dialog.nativeElement.children[1]) {
           //   (dialog.nativeElement.children[1] as HTMLElement).scrollTop = 0;
           // }
@@ -115,9 +137,10 @@ class Dojo extends Component {
         });
 
         if (this.map) {
-          new Marker({ element: el })
-            .setLngLat(dojo.geometry.coordinates)
-            .addTo(this.map);
+          const marker = new Marker({ element: el });
+          const markerEl = marker.getElement();
+          markerEl.appendChild(icon("location"));
+          marker.setLngLat(dojo.geometry.coordinates).addTo(this.map);
         }
       }
 
@@ -140,7 +163,11 @@ class Dojo extends Component {
           coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
 
-        let html = `<div>${e.features[0].properties.name} | ${e.features[0].properties.city}</div>`;
+        let html = `
+        <div>
+        ${e.features[0].properties.name}
+        </div>
+        `;
 
         this.popup.setLngLat(coordinates).setHTML(html).addTo(this.map);
       });

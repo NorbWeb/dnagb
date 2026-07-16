@@ -16,21 +16,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  color: var(--accent);
 
-  &:before {
-    content: "📍";
-    font-size: 1.75rem;
-    line-height: 1.75rem;
+  .icon {
+    width: 2.5rem;
+    height: 2.5rem;
   }
+
   cursor: pointer;
-  box-shadow: var(--shadow);
+}
 
-  &:hover {
-    box-shadow: var(--shadow-big);
-    &:after {
-      content: "";
-      position: absolute;
-      bottom: -1.5rem;
-    }
-  }
+.dojo-popup {
+  filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.5));
+  border-radius: var(--border-radius);
+  font-size: 0.75rem;
+  font-weight: 700;
 }
