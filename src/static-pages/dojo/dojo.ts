@@ -12,7 +12,6 @@ import {
 } from "maplibre-gl";
 import { covertToGeoJson } from "../../utils/helper";
 import { icon } from "../../utils/icon";
-import type { DojoInfo } from "../../types/dojo";
 
 class Dojo extends Component {
   static html = html;

@@ -19,10 +19,6 @@ class Home extends Component {
     this.watch(settingsStore._settings);
   }
 
-  navigate(url: string) {
-    navigation.navigate(url);
-  }
-
   connectedCallback() {
     super.connectedCallback();
     this.classList.add("full-width");

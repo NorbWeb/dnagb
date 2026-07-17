@@ -177,16 +177,17 @@ export const renderBlock = (block: any, page: Page | null): HTMLElement => {
       return findAnchorTagsAndAddTargetBlank(downloadBox);
 
     case "image":
-      const { name, title, url } = block.data.file;
+      const file = block.data.file;
+
       let figure = document.createElement("figure");
       figure.classList.add("img-figure");
       let figcaption = document.createElement("figcaption");
       figcaption.innerHTML = block.data.caption;
 
       let img = document.createElement("img");
-      img.title = title;
-      img.alt = name;
-      img.src = `${import.meta.env.VITE_CMS_URL}${url}`;
+      img.title = file.title;
+      img.alt = file.name;
+      img.src = `${import.meta.env.VITE_CMS_URL}${file.url.replace("/directus", "")}`;
 
       figure.appendChild(img);
       figure.appendChild(figcaption);
