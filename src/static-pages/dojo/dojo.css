@@ -9,6 +9,29 @@
   height: calc(100vh - var(--header-height) - var(--footer-height));
 }
 
+.zoom-to-extent {
+  border-radius: 4px;
+  background-color: #fff;
+  border: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  height: 29px;
+  outline: none;
+  padding: 0;
+  width: 29px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    background-color: #f2f2f2;
+  }
+}
+
 .dojo-marker {
   width: 2rem;
   height: 2rem;

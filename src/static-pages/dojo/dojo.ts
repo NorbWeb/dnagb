@@ -12,6 +12,7 @@ import {
 } from "maplibre-gl";
 import { covertToGeoJson } from "../../utils/helper";
 import { icon } from "../../utils/icon";
+import { ZoomToExtendControl } from "./zoomToExtend";
 
 class Dojo extends Component {
   static html = html;
@@ -35,6 +36,11 @@ class Dojo extends Component {
   connectedCallback() {
     super.connectedCallback();
     this.classList.add("full-width");
+    setTimeout(() => this.initMap(), 0);
+  }
+
+  disconnectedCallback(): void {
+    this.map?.remove();
   }
 
   initMap() {
@@ -56,19 +62,23 @@ class Dojo extends Component {
       container: mapContainer as HTMLElement,
       style:
         "https://sgx.geodatenzentrum.de/gdz_basemapworld_vektor/styles/bm_web_wld_col.json",
+      // style: "https://tiles.stadiamaps.com/styles/outdoors.json",
       center: [10.415, 51.356],
       zoom: 5.3,
-      maxZoom: 10,
+      maxZoom: 12,
       attributionControl: false,
     });
 
-    this.map.addControl(new NavigationControl({}), "top-right");
+    this.map.addControl(
+      new NavigationControl({ showCompass: false }),
+      "top-right",
+    );
     this.map.addControl(
       new AttributionControl({
         compact: true,
       }),
     );
-    // this.map.addControl(new ZoomToExtendControl());
+    this.map.addControl(new ZoomToExtendControl());
 
     this.map.dragRotate.disable();
     this.map.touchZoomRotate.disableRotation();
@@ -127,7 +137,6 @@ class Dojo extends Component {
           if (e.code === "Enter") {
             e.stopPropagation();
             if (this.justClosedDialog) {
-              // Ignore if dialog was just closed
               return;
             }
             dojoStore.setDojoInfo(dojo, "geojson");
@@ -186,15 +195,7 @@ class Dojo extends Component {
     });
   }
 
-  render() {
-    const mapContainer = this.shadowRoot?.querySelector("#map");
-    if (mapContainer) {
-      mapContainer.innerHTML = "";
-      setTimeout(() => {
-        this.initMap();
-      }, 0);
-    }
-  }
+  render() {}
 }
 
 if (!customElements.get("app-dojo")) {
