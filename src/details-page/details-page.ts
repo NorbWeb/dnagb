@@ -46,19 +46,19 @@ class DetailsPage extends Component {
       date.classList.add("date");
       info.appendChild(date);
 
-      // event type
-      if (data.fe_type === "event" && "type" in data) {
-        let typeBox = document.createElement("div");
-        typeBox.classList.add("type");
+      // event category
+      if (data.fe_type === "event" && "category" in data) {
+        let categories = document.createElement("div");
+        categories.classList.add("category");
 
-        if (data.type) {
-          for (const element of data.type) {
+        if (data.category) {
+          for (const element of data.category) {
             let chip = document.createElement("span");
             chip.textContent = element;
             chip.classList.add("chip");
-            typeBox.appendChild(chip);
+            categories.appendChild(chip);
           }
-          info.appendChild(typeBox);
+          info.appendChild(categories);
         }
       }
 

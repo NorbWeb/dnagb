@@ -11,7 +11,7 @@ export interface NagEvent {
   date_end: string;
   location_name: string;
   title: string;
-  type: Array<"seminar" | "examination" | "contest">;
+  category: string[];
   city: string;
   street: string;
   number: string;

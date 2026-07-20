@@ -37,7 +37,8 @@
   --border-radius: 0.5rem;
   --transition:
     background-color 150ms ease, box-shadow 150ms ease, filter 150ms ease,
-    font-size 150ms ease, color 150ms ease;
+    font-size 150ms ease, color 150ms ease, translate 150ms ease,
+    display 150ms ease;
 }
 
 @media screen and (max-width: 900px) {

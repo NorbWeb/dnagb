@@ -74,7 +74,7 @@
   }
 }
 
-.type {
+.category {
   display: none;
 
   &.show {
