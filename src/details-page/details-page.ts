@@ -48,19 +48,13 @@ class DetailsPage extends Component {
 
       // event type
       if (data.fe_type === "event" && "type" in data) {
-        let translation = {
-          examination: "Prüfung",
-          contest: "Wettkampf",
-          seminar: "Seminar",
-        };
-
         let typeBox = document.createElement("div");
         typeBox.classList.add("type");
 
         if (data.type) {
           for (const element of data.type) {
             let chip = document.createElement("span");
-            chip.textContent = translation[`${element}`];
+            chip.textContent = element;
             chip.classList.add("chip");
             typeBox.appendChild(chip);
           }

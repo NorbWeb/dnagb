@@ -10,7 +10,6 @@ export interface News {
   details: any;
   image: any;
   title: string;
-  short_description: string;
   date_start: string;
   date_end: string | null;
   author: string;

@@ -68,11 +68,6 @@ class NewsCard extends Component {
     }
 
     const type = this.shadowRoot?.querySelector(".type");
-    let translation: Record<string, string> = {
-      examination: "Prüfung",
-      contest: "Wettkampf",
-      seminar: "Seminar",
-    };
 
     if (type && attrType) {
       type.innerHTML = "";
@@ -80,7 +75,7 @@ class NewsCard extends Component {
       for (const item of attrType.split(",")) {
         let span = document.createElement("span");
         span.classList.add("chip");
-        span.innerText = translation[`${item}`];
+        span.innerText = item;
         type.appendChild(span);
       }
     }
