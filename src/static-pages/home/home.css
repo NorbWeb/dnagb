@@ -52,21 +52,17 @@
   }
 }
 
-.content {
-  max-width: var(--container-width);
-  margin: auto;
-  padding: 1rem;
-}
-
 #info {
   display: grid;
   grid-template-columns: var(--container-grid);
   padding: var(--gap) 0;
+
+  > * {
+    grid-column: 2;
+  }
 }
 
 .info-content {
-  grid-column: 2;
-
   --min-col-size: 300px;
 
   display: grid;

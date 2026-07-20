@@ -17,21 +17,24 @@ export function renderNewsCard(element: any): HTMLElement {
       : "/assets/placeholder.jpg",
   );
 
-  // Basistexte
-  card.setAttribute("title", element.title);
-  card.setAttribute("teaser", element.short_description || "");
-  card.setAttribute("link-url", `/${element.fe_type}/${element.id}`);
-
   // Datum und Link-Text
   card.setAttribute(
     "date",
     formatDateRange(element.date_start, element.date_end, false),
   );
 
-  card.setAttribute(
-    "link-text",
-    element.fe_type === "news" ? "zum Artikel" : "zum Event",
-  );
+  // Basistexte
+  card.setAttribute("title", element.title);
+  let teaserText = "";
+  if (element.details) {
+    let firstParagraph = element.details.blocks.find(
+      (block: any) => block.type === "paragraph",
+    );
+    teaserText = firstParagraph.data.text;
+  }
+  card.setAttribute("teaser", teaserText || "");
+
+  card.setAttribute("link-url", `/${element.fe_type}/${element.id}`);
 
   return card;
 }

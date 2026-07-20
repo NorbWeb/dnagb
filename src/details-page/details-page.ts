@@ -14,7 +14,9 @@ class DetailsPage extends Component {
 
   constructor() {
     super();
-    this.watch(feedStore._allContent);
+    this.watch(feedStore._allContent, () => {
+      this.render();
+    });
   }
 
   render() {
@@ -27,7 +29,7 @@ class DetailsPage extends Component {
 
     const data = feedStore.filterById(id, type);
 
-    if (data && data.details) {
+    if (data) {
       // title
       let title = document.createElement(`h1`);
       title.textContent = data.title;
@@ -35,18 +37,47 @@ class DetailsPage extends Component {
 
       // info
       let info = document.createElement("div");
-      info.textContent = `${formatDateRange(data.date_start, data.date_end, data.fe_type === "event")}${"author" in data ? ", " + data.author : ""}`;
-      info.classList.add("info-created");
+      info.classList.add("info");
       article.appendChild(info);
 
-      // content blocks
-      for (const block of data?.details?.blocks) {
-        article.appendChild(renderBlock(block, null));
+      // date
+      let date = document.createElement("span");
+      date.textContent = `${formatDateRange(data.date_start, data.date_end, data.fe_type === "event")}${"author" in data ? ", " + data.author : ""}`;
+      date.classList.add("date");
+      info.appendChild(date);
+
+      // event type
+      if (data.fe_type === "event" && "type" in data) {
+        let translation = {
+          examination: "Prüfung",
+          contest: "Wettkampf",
+          seminar: "Seminar",
+        };
+
+        let typeBox = document.createElement("div");
+        typeBox.classList.add("type");
+
+        if (data.type) {
+          for (const element of data.type) {
+            let chip = document.createElement("span");
+            chip.textContent = translation[`${element}`];
+            chip.classList.add("chip");
+            typeBox.appendChild(chip);
+          }
+          info.appendChild(typeBox);
+        }
       }
-    } else {
-      let p = document.createElement("p");
-      p.textContent = "Diese Seite hat noch keinen Inhalt.";
-      article.appendChild(p);
+
+      // content blocks
+      if (data.details) {
+        for (const block of data?.details?.blocks) {
+          article.appendChild(renderBlock(block, null));
+        }
+      } else {
+        let p = document.createElement("p");
+        p.textContent = "Diese Seite hat noch keinen Inhalt.";
+        article.appendChild(p);
+      }
     }
   }
 }

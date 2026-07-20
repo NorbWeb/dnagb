@@ -35,7 +35,7 @@ class News extends Component {
 
   connectedCallback() {
     super.connectedCallback();
-    this.classList.add("container-width");
+    this.classList.add("full-width");
   }
 
   render() {
