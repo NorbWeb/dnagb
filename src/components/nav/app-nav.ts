@@ -17,6 +17,20 @@ class AppNav extends Component {
     this.watch(pageStore.pages);
   }
 
+  public open() {
+    const dialog = this.shadowRoot?.getElementById(
+      "side-nav",
+    ) as HTMLDialogElement | null;
+    if (!dialog) return;
+
+    this.currentParentId = null;
+    this.history = [];
+
+    this.render();
+
+    dialog.showModal();
+  }
+
   connectedCallback() {
     super.connectedCallback();
 
@@ -24,6 +38,8 @@ class AppNav extends Component {
     if (toggleButton) {
       toggleButton.innerHTML = "";
       toggleButton.appendChild(icon("menu-open"));
+
+      toggleButton.addEventListener("click", () => this.open());
     }
 
     this.render();

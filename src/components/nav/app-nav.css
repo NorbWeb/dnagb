@@ -57,16 +57,16 @@
   }
   transition: all 150ms ease;
   transition-behavior: allow-discrete;
-  translate: 100% 0;
+  translate: 100% 0px;
 
   &[open] {
-    translate: 0 0;
+    translate: 0px 0px;
     &::backdrop {
       background-color: oklch(from black l c h / 0.5);
     }
 
     @starting-style {
-      translate: 100% 0;
+      translate: 100% 0px;
       &::backdrop {
         background-color: oklch(from black l c h / 0);
       }
