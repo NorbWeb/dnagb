@@ -7,10 +7,12 @@
   animation-duration: 0.15s;
 }
 
-main {
+#page-content {
   padding-top: var(--header-height);
   display: grid;
   grid-template-columns: var(--content-grid);
+  position: relative;
+  max-width: 100%;
 
   > * {
     grid-column: 2;
@@ -88,4 +90,27 @@ body {
       rgba(178, 178, 178, 0.02) 100%
     ),
     linear-gradient(90deg, var(--element-bg), var(--element-bg));
+}
+
+#back-to-top {
+  display: grid;
+  grid-template-columns: var(--container-grid);
+  position: sticky;
+  bottom: 0;
+  padding-bottom: 2rem;
+
+  > * {
+    grid-column: 2;
+  }
+
+  &.hidden {
+    display: none;
+  }
+
+  app-button {
+    margin-left: auto;
+    .icon {
+      translate: 0 0.125rem;
+    }
+  }
 }

@@ -5,9 +5,21 @@ import styles from "./button.css?inline";
 class Button extends Component {
   static html = html;
   static styles = styles;
+  static get watchedAttributes() {
+    return ["wcClass"];
+  }
 
   constructor() {
     super();
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    const wcClasses = this.getAttribute("wcClass");
+    const rootButton = this.shadowRoot?.querySelector(".btn");
+    if (rootButton && wcClasses) {
+      rootButton.classList.add(...wcClasses.split(" "));
+    }
   }
 
   render() {}

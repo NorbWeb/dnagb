@@ -3,6 +3,7 @@
 #dynamic-content {
   padding-bottom: calc(var(--gap) * 2);
   word-wrap: break-word;
+  min-height: var(--page-min-height);
 
   &:last-child {
     margin-bottom: 0;

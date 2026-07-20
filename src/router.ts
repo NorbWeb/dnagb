@@ -7,8 +7,8 @@ import "./static-pages/home/home.ts";
 import "./static-pages/dojo/dojo.ts";
 
 async function handleNavigation(pathname: string) {
-  const main = document.querySelector("main");
-  if (!main) return;
+  const content = document.querySelector("#page-content");
+  if (!content) return;
 
   // Diese Funktion baut den neuen View-Inhalt zusammen
   const updateDOM = () => {
@@ -26,7 +26,7 @@ async function handleNavigation(pathname: string) {
       const detailsView = document.createElement("app-details-page");
       detailsView.setAttribute("type", type);
       detailsView.setAttribute("id", id);
-      main.replaceChildren(detailsView);
+      content.replaceChildren(detailsView);
       document.title = `${type.charAt(0).toUpperCase() + type.slice(1)} | ${settingsStore.settings?.title_short}`;
       return;
     }
@@ -34,7 +34,7 @@ async function handleNavigation(pathname: string) {
     // 3. Static/Dynamic pages
     const page = pageStore.findByPath(pathname);
     if (!page) {
-      main.replaceChildren(document.createElement("page-error-404"));
+      content.replaceChildren(document.createElement("page-error-404"));
       document.title = `Seite nicht gefunden | ${settingsStore.settings?.title_short}`;
       return;
     }
@@ -52,7 +52,7 @@ async function handleNavigation(pathname: string) {
       document.title = `${page.title} | ${settingsStore.settings?.title_short}`;
     }
 
-    main.replaceChildren(newView);
+    content.replaceChildren(newView);
   };
 
   // --- HIER IST DIE MAGIE ---

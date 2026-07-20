@@ -28,6 +28,7 @@
   --gap: 2rem;
   --header-height: 4rem;
   --footer-height: 4rem;
+  --page-min-height: calc(80vh - var(--header-height) - var(--footer-height));
 
   /* effect */
   --shadow: 0 0 10px rgba(0, 0, 0, 0.1);

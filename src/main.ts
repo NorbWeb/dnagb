@@ -7,46 +7,51 @@ import "./components/footer/footer";
 import "../node_modules/maplibre-gl/dist/maplibre-gl.css";
 
 import { initRouter } from "./router";
-import { testStore } from "./store/test.store";
 import { settingsStore } from "./store/settings.store";
 import { pageStore } from "./store/page.store";
 import { eventStore } from "./store/event.store";
 import { newsStore } from "./store/news.store";
 import { dojoStore } from "./store/dojo.store";
-
-// dev tools
-const setButton = document.getElementById("setButton");
-const getButton = document.getElementById("getButton");
-const resetButton = document.getElementById("resetButton");
-
-setButton?.addEventListener("click", () => {
-  switch (testStore.test.length) {
-    case 0:
-      testStore.add("1");
-      console.log(`add: ${testStore.test[testStore.test.length - 1]}`);
-
-      break;
-
-    default:
-      const lastValue = testStore.test[testStore.test.length - 1];
-      testStore.add(`${lastValue} + 1`);
-      console.log(`add: ${testStore.test[testStore.test.length - 1]}`);
-      break;
-  }
-});
-
-getButton?.addEventListener("click", () => {
-  console.log(testStore.test);
-});
-
-resetButton?.addEventListener("click", () => {
-  testStore.reset();
-  console.debug("reset test store");
-});
+import { icon } from "./utils/icon";
 
 if (import.meta.env.VITE_ENVIRONMENT !== "dev") {
   let devTools = document.getElementById("devTools");
   if (devTools) devTools.style.display = "none";
+}
+
+function initBackToTopButton() {
+  const sentinel = document.querySelector("#top-sentinel");
+  const backToTop = document.querySelector("#back-to-top");
+  const backToTopButton = backToTop?.querySelector("app-button");
+  if (!backToTop || !backToTopButton || !sentinel) return;
+
+  backToTopButton.appendChild(icon("chevron-up"));
+  backToTopButton.addEventListener("click", () => {
+    window.scrollTo(0, 0);
+  });
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        // Wenn der Sentinel NICHT mehr zu sehen ist -> Button zeigen
+        if (!entry.isIntersecting) {
+          backToTop.classList.remove("hidden");
+          backToTop.ariaHidden = "false";
+        } else {
+          // Wenn wir wieder oben sind -> Button ausblenden
+          backToTop.classList.add("hidden");
+          backToTop.ariaHidden = "true";
+        }
+      });
+    },
+    {
+      root: null,
+      rootMargin: "100% 0px 0px 0px",
+      threshold: 0,
+    },
+  );
+
+  observer.observe(sentinel);
 }
 
 async function init() {
@@ -56,6 +61,7 @@ async function init() {
   await eventStore.fetchEvents();
   await newsStore.fetchNews();
   await dojoStore.fetchDojos();
+  initBackToTopButton();
 }
 
 init();

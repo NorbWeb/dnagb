@@ -1,4 +1,4 @@
-**Title**: 001: Anpassen der Url von Bilder im Block-Editor.
+**Title**: 001: Anpassen der Url von Bildern im Block-Editor.
 
 **Created By**: Norbert Madauß
 
