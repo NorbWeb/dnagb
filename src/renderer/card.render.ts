@@ -36,5 +36,9 @@ export function renderNewsCard(element: any): HTMLElement {
 
   card.setAttribute("link-url", `/${element.fe_type}/${element.id}`);
 
+  if (element.type) {
+    card.setAttribute("type", element.type);
+  }
+
   return card;
 }

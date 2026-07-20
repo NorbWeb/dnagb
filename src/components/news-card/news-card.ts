@@ -11,6 +11,7 @@ class NewsCard extends Component {
       "title",
       "date",
       "teaser",
+      "type",
       "image-src",
       "link-url",
       "img-alt",
@@ -38,6 +39,7 @@ class NewsCard extends Component {
     const attrTitle = this.getAttribute("title") || "Titel";
     const attrTeaser = this.getAttribute("teaser") || "";
     const attrDate = this.getAttribute("date") || "Date";
+    const attrType = this.getAttribute("type") || null;
 
     const card = this.shadowRoot?.querySelector(".card");
     if (card && attrIsPast === "true") {
@@ -63,6 +65,24 @@ class NewsCard extends Component {
     const date = this.shadowRoot?.querySelector(".date");
     if (date) {
       date.textContent = attrDate;
+    }
+
+    const type = this.shadowRoot?.querySelector(".type");
+    let translation: Record<string, string> = {
+      examination: "Prüfung",
+      contest: "Wettkampf",
+      seminar: "Seminar",
+    };
+
+    if (type && attrType) {
+      type.innerHTML = "";
+      type.classList.add("show");
+      for (const item of attrType.split(",")) {
+        let span = document.createElement("span");
+        span.classList.add("chip");
+        span.innerText = translation[`${item}`];
+        type.appendChild(span);
+      }
     }
 
     const teaser = this.shadowRoot?.querySelector(".teaser");

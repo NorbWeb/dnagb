@@ -21,7 +21,6 @@ class News extends Component {
     filterBar?.addEventListener("click", (event) => {
       const target = event.target;
       if (target instanceof HTMLInputElement) {
-        console.log(target.value);
         if (target.value === feedStore.filter) {
           feedStore.setFilter("all");
           if (allFilter && allFilter instanceof HTMLInputElement)

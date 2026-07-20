@@ -73,3 +73,22 @@
     word-break: break-word;
   }
 }
+
+.type {
+  display: none;
+
+  &.show {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .chip {
+    border: 2px solid var(--accent);
+    border-radius: 1rem;
+    color: var(--accent);
+    padding: 0 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+}
