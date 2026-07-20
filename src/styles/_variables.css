@@ -43,6 +43,5 @@
 @media screen and (max-width: 900px) {
   :root {
     font-size: 14px;
-    --gap: 1rem;
   }
 }

@@ -25,11 +25,7 @@ export function renderNewsCard(element: any): HTMLElement {
   // Datum und Link-Text
   card.setAttribute(
     "date",
-    formatDateRange(
-      element.date_start,
-      element.date_end,
-      element.fe_type === "news" ? false : true,
-    ),
+    formatDateRange(element.date_start, element.date_end, false),
   );
 
   card.setAttribute(

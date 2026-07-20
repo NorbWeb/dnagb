@@ -21,14 +21,14 @@ export const formatDateRange = (
   // Formatierer für Datum
   const dateFormater = new Intl.DateTimeFormat("de-DE", {
     day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
+    month: "short",
+    year: "2-digit",
   });
 
   // Formatierer für Uhrzeit
   const timeFormater = new Intl.DateTimeFormat("de-DE", {
-    hour: "2-digit",
-    minute: "2-digit",
+    hour: "numeric",
+    minute: "numeric",
   });
 
   const formattedDate = dateFormater.format(startDate);
