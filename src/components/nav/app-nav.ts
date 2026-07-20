@@ -26,32 +26,6 @@ class AppNav extends Component {
       toggleButton.appendChild(icon("menu-open"));
     }
 
-    const dialog = this.shadowRoot?.getElementById(
-      "side-nav",
-    ) as HTMLDialogElement;
-
-    if (dialog) {
-      dialog.addEventListener("close", () => {
-        this.currentParentId = null;
-        this.history = [];
-
-        this.render();
-      });
-    }
-
-    dialog.addEventListener("click", (e) => {
-      const rect = dialog.getBoundingClientRect();
-      const isInDialog =
-        e.clientX >= rect.left &&
-        e.clientX <= rect.right &&
-        e.clientY >= rect.top &&
-        e.clientY <= rect.bottom;
-
-      // Wenn außerhalb des Dialog-Bereichs geklickt wurde -> schließen
-      if (!isInDialog) {
-        dialog.close();
-      }
-    });
     this.render();
   }
 

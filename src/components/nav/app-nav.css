@@ -37,6 +37,10 @@
   }
 }
 
+#side-nav-toggle {
+  z-index: 1200;
+}
+
 #side-nav {
   z-index: 1100;
   padding: 0;
@@ -47,7 +51,26 @@
   position-anchor: --nav-anchor;
   position-area: span-left bottom;
   &::backdrop {
-    background-color: oklch(from black l c h / 0.5);
+    transition: all 150ms ease;
+    background-color: oklch(from black l c h / 0);
+    z-index: 1100;
+  }
+  transition: all 150ms ease;
+  transition-behavior: allow-discrete;
+  translate: 100% 0;
+
+  &[open] {
+    translate: 0 0;
+    &::backdrop {
+      background-color: oklch(from black l c h / 0.5);
+    }
+
+    @starting-style {
+      translate: 100% 0;
+      &::backdrop {
+        background-color: oklch(from black l c h / 0);
+      }
+    }
   }
 
   @media (max-width: 768px) {
