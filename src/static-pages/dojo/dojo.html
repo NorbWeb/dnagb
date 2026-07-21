@@ -1,8 +1,10 @@
+<!-- map -->
 <div id="map"></div>
 
-<dialog id="dojo-dialog">
+<!-- dialog -->
+<dialog id="dojo-dialog" closedby="any">
   <div class="header">
-    <span class="name"></span>
+    <div class="name"></div>
     <button
       commandfor="dojo-dialog"
       command="close"
@@ -14,12 +16,14 @@
       </svg>
     </button>
   </div>
-  <div class="dojo-info-wrapper">
+  <div class="sub-header">
     <div class="city"></div>
-    <a class="link" href="#" target="_blank" title="Link zum Dojo">
-      <img class="logo" src="" alt="Link zum Dojo" />
-    </a>
+    <a class="link" href="#" target="_blank" title="Link zum Dojo"
+      >Link zum Dojo</a
+    >
   </div>
-  <div class="dojo-logo-wrapper"></div>
-  <div class="description"></div>
+  <div class="body">
+    <img class="logo" src="" alt="Link zum Dojo" />
+    <div class="description"></div>
+  </div>
 </dialog>

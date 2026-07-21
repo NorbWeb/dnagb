@@ -122,15 +122,13 @@ class Dojo extends Component {
           const dCity = dialog.querySelector(".city") as HTMLDivElement;
           dCity.textContent = info.city;
           const dImag = dialog.querySelector(".logo") as HTMLImageElement;
-          dImag.src = info.logo;
+          dImag.src = info.logo
+            ? `${import.meta.env.VITE_CMS_URL}/assets/${info.logo}`
+            : "/assets/placeholder.jpg";
           const dDescription = dialog.querySelector(
             ".description",
           ) as HTMLDivElement;
           dDescription.innerHTML = info.description;
-
-          // if (dialog && dialog.nativeElement.children[1]) {
-          //   (dialog.nativeElement.children[1] as HTMLElement).scrollTop = 0;
-          // }
         });
 
         el.addEventListener("keyup", (e: KeyboardEvent) => {
@@ -140,7 +138,6 @@ class Dojo extends Component {
               return;
             }
             dojoStore.setDojoInfo(dojo, "geojson");
-            // this.dojoDialog()?.nativeElement.show();
           }
         });
 

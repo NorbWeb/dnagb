@@ -55,3 +55,71 @@
   font-size: 0.75rem;
   font-weight: 700;
 }
+
+#dojo-dialog {
+  border: none;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  overflow-y: hidden;
+
+  width: 30rem;
+  max-height: 80vh;
+
+  &[open] {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    word-break: break-all;
+  }
+
+  .close-btn {
+    border: none;
+    background-color: unset;
+    &:hover,
+    &:focus-visible {
+      background-color: rgb(0, 0, 0, 0.1);
+    }
+    border-radius: 4px;
+  }
+
+  .name {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .sub-header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .city {
+    font-size: 1.25rem;
+    font-style: italic;
+    margin-bottom: 0.25rem;
+  }
+
+  .link {
+  }
+
+  .body {
+    overflow-y: auto;
+  }
+
+  .logo {
+    margin: 0.25rem;
+    width: 150px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    float: right;
+  }
+
+  .description {
+    /* display: none; */
+  }
+}
