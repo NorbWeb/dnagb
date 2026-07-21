@@ -55,8 +55,9 @@
     background-color: oklch(from black l c h / 0);
     z-index: 1100;
   }
-  transition: all 150ms ease;
   transition-behavior: allow-discrete;
+  transition-property: all;
+  transition-duration: 150ms;
   translate: 100% 0px;
 
   &[open] {
