@@ -19,6 +19,13 @@ class Home extends Component {
     this.watch(settingsStore._settings);
   }
 
+  setLineBreaksAndSoftHyphens(text: string): string {
+    let step1 = text.replaceAll("|", "<br>");
+    let step2 = step1.replaceAll("/", "&shy;");
+
+    return step2;
+  }
+
   connectedCallback() {
     super.connectedCallback();
     this.classList.add("full-width");
@@ -40,9 +47,8 @@ class Home extends Component {
 
     const title = this.shadowRoot?.querySelector("h1.title");
     if (title && settingsStore.settings) {
-      title.innerHTML = settingsStore.settings?.title_long_1.replaceAll(
-        "|",
-        "</br>",
+      title.innerHTML = this.setLineBreaksAndSoftHyphens(
+        settingsStore.settings?.title_long_1,
       );
     }
 
