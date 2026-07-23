@@ -116,19 +116,30 @@ class Dojo extends Component {
 
           dialog.showModal();
           const dLink = dialog.querySelector(".link") as HTMLAnchorElement;
-          dLink.href = info.link;
+          if (!info.link) {
+            dLink.classList.add("disabled");
+          } else {
+            dLink.href = info.link;
+            dLink.classList.remove("disabled");
+          }
           const dName = dialog.querySelector(".name") as HTMLDivElement;
           dName.textContent = info.name;
           const dCity = dialog.querySelector(".city") as HTMLDivElement;
           dCity.textContent = info.city;
           const dImag = dialog.querySelector(".logo") as HTMLImageElement;
-          dImag.src = info.logo
-            ? `${import.meta.env.VITE_CMS_URL}/assets/${info.logo}`
-            : "/assets/placeholder.jpg";
+          if (!info.logo) {
+            dLink.classList.add("show-svg");
+            dLink.classList.remove("show-logo");
+          } else {
+            dImag.src = `${import.meta.env.VITE_CMS_URL}/assets/${info.logo}`;
+            dLink.classList.add("show-logo");
+            dLink.classList.remove("show-svg");
+          }
           const dDescription = dialog.querySelector(
             ".description",
           ) as HTMLDivElement;
-          dDescription.innerHTML = info.description;
+          dDescription.innerHTML =
+            info.description || "Keine Beschreibung vorhanden.";
         });
 
         el.addEventListener("keyup", (e: KeyboardEvent) => {

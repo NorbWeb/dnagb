@@ -3,27 +3,23 @@
 
 <!-- dialog -->
 <dialog id="dojo-dialog" closedby="any">
-  <div class="header">
-    <div class="name"></div>
-    <button
-      commandfor="dojo-dialog"
-      command="close"
-      class="close-btn"
-      autofocus
-    >
-      <svg class="icon" width="24" height="24" style="display: inline-block">
-        <use href="/assets/icons/sprite.svg#close"></use>
-      </svg>
-    </button>
-  </div>
-  <div class="sub-header">
-    <div class="city"></div>
-    <a class="link" href="#" target="_blank" title="Link zum Dojo"
-      >Link zum Dojo</a
-    >
-  </div>
-  <div class="body">
+  <a class="link" href="#" target="_blank" title="Link zum Dojo">
     <img class="logo" src="" alt="Link zum Dojo" />
+    <svg class="icon placeholder" width="24" height="24">
+      <use href="/assets/icons/sprite.svg#home"></use>
+    </svg>
+    <div class="name"></div>
+    <svg class="icon external" width="24" height="24">
+      <use href="/assets/icons/sprite.svg#external-link"></use>
+    </svg>
+  </a>
+  <div class="city"></div>
+  <div class="body">
     <div class="description"></div>
   </div>
+  <button commandfor="dojo-dialog" command="close" class="close-btn" autofocus>
+    <svg class="icon" width="24" height="24">
+      <use href="/assets/icons/sprite.svg#close"></use>
+    </svg>
+  </button>
 </dialog>
