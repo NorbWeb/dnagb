@@ -47,12 +47,16 @@ class Home extends Component {
     }
 
     const banner = this.shadowRoot?.querySelector(
-      "#banner",
+      ".banner",
     ) as HTMLImageElement;
+    let bannerUrl = "/assets/placeholder.jpg";
     if (banner && settingsStore.settings?.banner) {
-      banner.src = `${import.meta.env.VITE_CMS_URL}/assets/${settingsStore.settings?.banner}`;
-    } else {
-      banner.src = "/assets/placeholder.jpg";
+      bannerUrl = `${import.meta.env.VITE_CMS_URL}/assets/${settingsStore.settings?.banner}`;
+      banner.style.background = `linear-gradient(
+      90deg,
+      var(--element-bg-dark) 30%,
+      transparent 100%
+    ), center / cover no-repeat url(${bannerUrl})`;
     }
   }
 
